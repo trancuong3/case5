@@ -44,10 +44,9 @@ public class User {
 
 
     public enum Status {
-        ACTIVE,   // Make sure the enum constant matches the value being passed.
+        ACTIVE,   
         Active, Locked
     }
-    // Getters and Setters
     public int getUserId() {
         return userId;
     }
