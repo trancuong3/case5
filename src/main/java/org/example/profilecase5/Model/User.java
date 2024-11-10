@@ -34,7 +34,8 @@ public class User {
     private Status status = Status.Active;
 
     @Column(name = "is_owner")
-    private boolean isOwner;
+//    @Convert(converter = org.hibernate.type.NumericBooleanConverter.class)
+    private Boolean owner;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private Timestamp createdAt;
@@ -111,12 +112,12 @@ public class User {
         this.status = status;
     }
 
-    public boolean isOwner() {
-        return isOwner;
+    public Boolean getOwner() {
+        return owner;
     }
 
-    public void setOwner(boolean owner) {
-        isOwner = owner;
+    public void setOwner(Boolean owner) {
+        this.owner = owner;
     }
 
     public Timestamp getCreatedAt() {

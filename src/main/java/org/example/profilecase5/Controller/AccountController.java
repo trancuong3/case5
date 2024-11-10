@@ -55,7 +55,7 @@ public class AccountController {
             user.setEmail(email);
             user.setPhone(phone);
             user.setAddress(address);
-            userService.updateUser(user);
+            userService.saveUser(user);
             model.addAttribute("user", user);
             return "redirect:/account";
         } else {
