@@ -49,7 +49,7 @@ public class User {
     private Status status = Status.Active;
 
     @Column(name = "is_owner")
-    private Boolean  isOwner;
+    private Boolean isOwner = false;
 
     @Column(name = "created_at", updatable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")

@@ -14,3 +14,23 @@ function checkPasswordMatch() {
 document.getElementById('passwordConfirm').addEventListener('input', function() {
     checkPasswordMatch();
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+    const ownerBtn = document.getElementById("ownerBtn");
+    const customerBtn = document.getElementById("customerBtn");
+    const isOwnerInput = document.getElementById("isOwner");
+
+    // Khi nhấp vào nút "Làm chủ nhà"
+    ownerBtn.addEventListener("click", function() {
+        ownerBtn.classList.add("selected");
+        customerBtn.classList.remove("selected");
+        isOwnerInput.value = ownerBtn.getAttribute("data-value"); // Cập nhật giá trị là true
+    });
+
+    // Khi nhấp vào nút "Làm khách hàng"
+    customerBtn.addEventListener("click", function() {
+        customerBtn.classList.add("selected");
+        ownerBtn.classList.remove("selected");
+        isOwnerInput.value = customerBtn.getAttribute("data-value"); // Cập nhật giá trị là false
+    });
+});

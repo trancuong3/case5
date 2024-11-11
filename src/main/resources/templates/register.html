@@ -62,10 +62,17 @@
                 <input type="text" id="address" name="address" th:field="*{address}" placeholder="Address">
                 <span class="error-message" th:errors="*{address}"></span>
             </div>
-
+            <div class="input">
+                <label for="isOwner">Chọn vai trò</label>
+                <div class="role-buttons">
+                    <button type="button" class="role-btn" id="ownerBtn" data-value="true">Làm chủ nhà</button>
+                    <button type="button" class="role-btn selected" id="customerBtn" data-value="false" selected>Làm khách hàng</button>
+                </div>
+                <input type="hidden" id="isOwner" th:field="*{isOwner}" value="false"/>
+                <span class="error-message" th:errors="*{isOwner}"></span>
+            </div>
             <!-- Hidden fields for status, isOwner, createdAt, updatedAt -->
             <input type="hidden" name="status" th:field="*{status}" value="ACTIVE">
-            <input type="checkbox" th:field="*{isOwner}" hidden />
             <input type="hidden" name="createdAt" th:field="*{createdAt}" th:value="${#dates.format(user.createdAt, 'yyyy-MM-dd HH:mm:ss')}">
             <input type="hidden" name="updatedAt" th:field="*{updatedAt}" th:value="${#dates.format(user.updatedAt, 'yyyy-MM-dd HH:mm:ss')}">
 
