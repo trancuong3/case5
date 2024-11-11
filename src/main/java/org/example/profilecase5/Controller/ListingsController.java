@@ -1,16 +1,16 @@
 package org.example.profilecase5.Controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/hosting")
-public class HostingController {
+@RequestMapping("/hosting/listings")
+public class ListingsController {
 
-    @GetMapping("")
-    public String showHostingPage(){
-        return "hosting";
+    @GetMapping
+    public String listings(Model model) {
+        return "listings";
     }
-
 }
