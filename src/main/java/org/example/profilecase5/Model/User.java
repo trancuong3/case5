@@ -1,6 +1,10 @@
 package org.example.profilecase5.Model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.sql.Timestamp;
 
 @Entity
@@ -12,21 +16,32 @@ public class User {
     @Column(name = "user_id")
     private int userId;
 
-    @Column(name = "username", nullable = false, unique = true)
+    @Column(name = "username")
+    @NotEmpty(message = "Tên người dùng không được để trống")
     private String username;
 
     @Column(name = "email", unique = true)
+    @NotEmpty(message = "Email không được để trống")
     private String email;
 
     @Column(name = "password", nullable = false)
+    @NotEmpty(message = "Password không được để trống")
+    @Size(min = 6, max = 32, message = "Mật khẩu phải có độ dài từ 6 đến 32 ký tự")
     private String password;
+    @Column(name = "confirm_password")
+    @NotEmpty(message = "Xác nhận mật khẩu không được để trống")
+//    @Size(min = 6, max = 32, message = "Xác nhận mật khẩu phải có độ dài từ 6 đến 32 ký tự")
+    private String passwordConfirm;
 
     @Column(name = "phone")
+    @NotEmpty(message = "Số điện thoại không được để trống")
     private String phone;
     @Column(name="fullname")
+    @NotEmpty(message = "Tên không được để trống")
     private String fullname;
 
     @Column(name = "address")
+    @NotEmpty(message = "Địa chỉ không được để trống")
     private String address;
 
     @Enumerated(EnumType.STRING)
@@ -34,13 +49,14 @@ public class User {
     private Status status = Status.Active;
 
     @Column(name = "is_owner")
-//    @Convert(converter = org.hibernate.type.NumericBooleanConverter.class)
-    private Boolean owner;
+    private Boolean  isOwner;
 
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @Column(name = "created_at", updatable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Timestamp createdAt;
 
-    @Column(name = "updated_at", nullable = false)
+    @Column(name = "updated_at")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Timestamp updatedAt;
 
 
@@ -112,12 +128,11 @@ public class User {
         this.status = status;
     }
 
-    public Boolean getOwner() {
-        return owner;
+    public Boolean getIsOwner() {
+        return isOwner;
     }
-
-    public void setOwner(Boolean owner) {
-        this.owner = owner;
+    public void setIsOwner(Boolean  isOwner) {
+        this.isOwner = isOwner;
     }
 
     public Timestamp getCreatedAt() {
@@ -134,5 +149,13 @@ public class User {
 
     public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
+
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
     }
 }

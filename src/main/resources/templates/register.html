@@ -18,53 +18,54 @@
             <div class="input">
                 <label for="fullname">Họ và Tên</label>
                 <input type="text" id="fullname" name="fullname" th:field="*{fullname}" placeholder="Full Name" required>
-                <span class="error-message" th:if="${fullnameError != null}" th:text="${fullnameError}"></span>
+                <span class="error-message" th:errors="*{fullname}"></span>
             </div>
 
             <!-- Username field -->
             <div class="input">
                 <label for="name">Tên người dùng</label>
                 <input type="text" id="name" name="username" th:field="*{username}" placeholder="Username" required>
-                <span class="error-message" th:if="${usernameError != null}" th:text="${usernameError}"></span>
+                <span class="error-message" th:errors="*{username}"></span>
             </div>
 
             <!-- Email field -->
             <div class="input">
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" th:field="*{email}" placeholder="Email" required>
-                <span class="error-message" th:if="${emailError != null}" th:text="${emailError}"></span>
+                <span class="error-message" th:errors="*{email}"></span>
             </div>
 
             <!-- Phone field -->
             <div class="input">
                 <label for="phone">Số điện thoại</label>
                 <input type="tel" id="phone" name="phone" th:field="*{phone}" placeholder="Phone Number" required>
-                <span class="error-message" th:if="${phoneError != null}" th:text="${phoneError}"></span>
+                <span class="error-message" th:errors="*{phone}"></span>
             </div>
 
             <!-- Password fields -->
             <div class="input">
                 <label for="password">Mật khẩu</label>
                 <input type="password" id="password" name="password" th:field="*{password}" placeholder="Password" required>
-                <span class="error-message" th:if="${passwordError != null}" th:text="${passwordError}"></span>
+                <span class="error-message" th:errors="*{password}"></span>
             </div>
 
             <div class="input">
-                <label for="confirm_password">Nhập lại mật khẩu</label>
-                <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm Password" required>
-                <span class="error-message">Mật khẩu không khớp!</span>
+                <label for="passwordConfirm">Nhập lại mật khẩu</label>
+                <input type="password" name="passwordConfirm" id="passwordConfirm" th:field="*{passwordConfirm}" placeholder="Confirm Password" required>
+                <!-- Hiển thị thông báo lỗi cho trường mật khẩu xác nhận -->
+                <span class="error-message" th:errors="*{passwordConfirm}">Mật khẩu không khớp!</span>
             </div>
 
             <!-- Address field -->
             <div class="input">
                 <label for="address">Địa chỉ</label>
                 <input type="text" id="address" name="address" th:field="*{address}" placeholder="Address">
-                <span class="error-message" th:if="${addressError != null}" th:text="${addressError}"></span>
+                <span class="error-message" th:errors="*{address}"></span>
             </div>
 
             <!-- Hidden fields for status, isOwner, createdAt, updatedAt -->
             <input type="hidden" name="status" th:field="*{status}" value="ACTIVE">
-            <input type="radio" hidden name="isOwner" th:field="*{owner}" value="false">
+            <input type="checkbox" th:field="*{isOwner}" hidden />
             <input type="hidden" name="createdAt" th:field="*{createdAt}" th:value="${#dates.format(user.createdAt, 'yyyy-MM-dd HH:mm:ss')}">
             <input type="hidden" name="updatedAt" th:field="*{updatedAt}" th:value="${#dates.format(user.updatedAt, 'yyyy-MM-dd HH:mm:ss')}">
 

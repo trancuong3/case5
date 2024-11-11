@@ -1,6 +1,7 @@
 package org.example.profilecase5.Service;
 
-import org.example.profilecase5.Exception.User.UsernameAlreadyExistsException;
+import org.example.profilecase5.Exceptions.User.EmailAlreadyExistsException;
+import org.example.profilecase5.Exceptions.User.UsernameAlreadyExistsException;
 import org.example.profilecase5.Model.User;
 import org.example.profilecase5.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,12 @@ public class UserService {
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+    public boolean isUsernameExist(String username) {
+        return userRepository.existsByUsername(username);
+    }
+    public boolean isEmailExist(String email) {
+        return userRepository.existsByEmail(email);
+    }
 
     public User getUserById(int userId) {
         return userRepository.findById(userId).orElse(null);
@@ -20,9 +27,14 @@ public class UserService {
         userRepository.save(user);
     }
     public void registerUser(User user) {
-        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
-            // Handle username already exists
-            throw new UsernameAlreadyExistsException("Tên người dùng đã tồn tại");
+        // Kiểm tra tên người dùng
+        if (isUsernameExist(user.getUsername())) {
+            throw new UsernameAlreadyExistsException("Vui lòng sử dụng tên đăng nhập khác.");
+        }
+
+        // Kiểm tra email
+        if (isEmailExist(user.getEmail())) {
+            throw new EmailAlreadyExistsException("Vui lòng sử dụng email khác.");
         }
         userRepository.save(user);
     }

@@ -1,17 +1,16 @@
 function checkPasswordMatch() {
     const password = document.getElementById('password').value;
-    const repass = document.getElementById('confirm_password').value;
+    const repass = document.getElementById('passwordConfirm').value;
     if (password !== repass) {
-        document.getElementById('confirm_password').style.borderColor = 'red';
-        document.getElementById('confirm_password').nextElementSibling.style.display = 'block';
-        document.getElementById('confirm_password').nextElementSibling.textContent = 'Mật khẩu không khớp!';
+        document.getElementById('passwordConfirm').style.borderColor = 'red';
+        document.getElementById('passwordConfirm').nextElementSibling.style.display = 'block';
         return false;
     }
-    document.getElementById('confirm_password').style.borderColor = '';
-    document.getElementById('confirm_password').nextElementSibling.style.display = 'none';
+    document.getElementById('passwordConfirm').style.borderColor = '';
+    document.getElementById('passwordConfirm').nextElementSibling.style.display = 'none';
     return true;
 }
 
-document.getElementById('confirm_password').addEventListener('input', function() {
+document.getElementById('passwordConfirm').addEventListener('input', function() {
     checkPasswordMatch();
 });
