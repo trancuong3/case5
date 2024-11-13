@@ -45,8 +45,8 @@
             <!-- Password fields -->
             <div class="input">
                 <label for="password">Mật khẩu</label>
-                <input type="password" id="password" name="password" th:field="*{password}" placeholder="Password" required>
-                <span class="error-message" th:errors="*{password}"></span>
+                <input type="password" id="password" name="password" th:field="*{password}" placeholder="Password" minlength="6" maxlength="32" required>
+                <span class="error-message" id="password_error" th:errors="*{password}"></span>
             </div>
 
             <div class="input">

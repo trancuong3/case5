@@ -32,7 +32,7 @@ public class User {
     private String password;
     @Column(name = "confirm_password")
     @NotEmpty(message = "Xác nhận mật khẩu không được để trống")
-//    @Size(min = 6, max = 32, message = "Xác nhận mật khẩu phải có độ dài từ 6 đến 32 ký tự")
+    @Size(min = 6, max = 32, message = "Xác nhận mật khẩu phải có độ dài từ 6 đến 32 ký tự")
     private String passwordConfirm;
 
     @Column(name = "phone")
