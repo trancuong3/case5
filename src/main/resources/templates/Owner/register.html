@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register Owner</title>
+</head>
+<body>
+<div class="container">
+    <h2>Đăng ký chủ nhà</h2>
+    <p>Hệ thống sẽ tự động lấy thông tin của bạn</p>
+    <p>Vui lòng nhập mật khẩu để đăng ký</p>
+    <form th:action="@{/register/owner}" method="post">
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <span th:if="${error}" class="error-message" th:text="${error}"></span>
+        <button type="submit" class="btn">Submit</button>
+    </form>
+</div>
+
+</body>
+</html>

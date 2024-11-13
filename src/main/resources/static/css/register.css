@@ -4,14 +4,14 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #f0f2f5;
+    background-color: #f7f0f7;
     margin: 0;
     font-family: Arial, sans-serif;
 }
 
 .materialContainer {
     width: 100%;
-    max-width: 400px;
+    max-width: 600px; /* Đổi max-width để form rộng hơn */
     padding: 20px;
     background: #fff;
     border-radius: 8px;
@@ -20,18 +20,18 @@ body {
 
 /* Form title */
 .title {
-    font-size: 24px;
+    font-size: 36px; /* Tăng kích thước chữ "Đăng ký" */
     font-weight: 600;
     margin-bottom: 20px;
     text-align: center;
-    color: #333;
+    color: #d63384;
 }
 
 /* Input fields styling */
 .input {
     position: relative;
     margin-bottom: 20px;
-    min-height: 60px; /* Đặt chiều cao tối thiểu cho ô input để đảm bảo không bị đẩy khi thêm thẻ khác */
+    min-height: 60px;
 }
 
 .input label {
@@ -51,9 +51,9 @@ body {
 }
 
 .input input:focus {
-    border-color: #007bff;
+    border-color: #d63384;
     outline: none;
-    box-shadow: 0 0 4px rgba(0, 123, 255, 0.25);
+    box-shadow: 0 0 4px rgba(214, 51, 132, 0.25);
 }
 
 /* Error message styling */
@@ -77,7 +77,7 @@ body {
     font-size: 16px;
     font-weight: 500;
     color: #fff;
-    background-color: #007bff;
+    background-color: #d63384;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -85,7 +85,7 @@ body {
 }
 
 .button button:hover {
-    background-color: #0056b3;
+    background-color: #c12f73;
 }
 
 /* Media query for small screens */
@@ -93,4 +93,33 @@ body {
     .materialContainer {
         padding: 15px;
     }
+}
+
+.role-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.role-btn {
+    padding: 10px 20px;
+    background-color: #f0f0f0;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.role-btn.selected {
+    background-color: #d63384;
+    color: white;
+    border-color: #d63384;
+}
+
+.role-btn:hover {
+    background-color: #e0e0e0;
+}
+
+.role-btn:active {
+    transform: scale(0.98);
 }

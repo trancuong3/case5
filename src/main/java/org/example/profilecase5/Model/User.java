@@ -1,6 +1,9 @@
 package org.example.profilecase5.Model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 import java.sql.Timestamp;
@@ -21,21 +24,28 @@ public class User  {
     private String username;
 
     @Column(name = "email", unique = true)
+    @NotEmpty(message = "Email không được để trống")
     private String email;
 
     @Column(name = "password", nullable = false)
+    @NotEmpty(message = "Password không được để trống")
+    @Size(min = 6, max = 32, message = "Mật khẩu phải có độ dài từ 6 đến 32 ký tự")
     private String password;
     @Column(name="confirm_password")
+    @NotEmpty(message = "Xác nhận mật khẩu không được để trống")
     private String confirmPassword;
     @Column(name = "phone")
+    @NotEmpty(message = "Số điện thoại không được để trống")
     private String phone;
     @Column(name="fullname")
+    @NotEmpty(message = "Tên không được để trống")
     private String fullname;
     @Column(name = "avatar", columnDefinition = "TEXT")
     private String avatar;
 
 
     @Column(name = "address")
+    @NotEmpty(message = "Địa chỉ không được để trống")
     private String address;
 
     @Enumerated(EnumType.STRING)
@@ -45,11 +55,14 @@ public class User  {
 
 
     @Column(name = "created_at", nullable = false, updatable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Timestamp createdAt;
 
     @Column(name = "updated_at", nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Timestamp updatedAt;
-
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Owner owner;
     public String getConfirmPassword() {
         return confirmPassword;
     }
