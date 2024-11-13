@@ -6,6 +6,8 @@ import jakarta.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "User")
@@ -48,8 +50,6 @@ public class User {
     @Column(name = "status", columnDefinition = "ENUM('Active', 'Locked') DEFAULT 'Active'")
     private Status status = Status.Active;
 
-    @Column(name = "is_owner")
-    private Boolean isOwner = false;
 
     @Column(name = "created_at", updatable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -64,6 +64,10 @@ public class User {
         ACTIVE,   
         Active, Locked
     }
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Owner owner;
+
     public int getUserId() {
         return userId;
     }
@@ -126,13 +130,6 @@ public class User {
 
     public void setStatus(Status status) {
         this.status = status;
-    }
-
-    public Boolean getIsOwner() {
-        return isOwner;
-    }
-    public void setIsOwner(Boolean  isOwner) {
-        this.isOwner = isOwner;
     }
 
     public Timestamp getCreatedAt() {

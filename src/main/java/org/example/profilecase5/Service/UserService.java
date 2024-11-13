@@ -1,5 +1,6 @@
 package org.example.profilecase5.Service;
 
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.example.profilecase5.Exceptions.User.EmailAlreadyExistsException;
 import org.example.profilecase5.Exceptions.User.UsernameAlreadyExistsException;
 import org.example.profilecase5.Model.User;
@@ -37,5 +38,10 @@ public class UserService {
             throw new EmailAlreadyExistsException("Vui lòng sử dụng email khác.");
         }
         userRepository.save(user);
+    }
+    public User getCurrentUser() {
+        // Lấy thông tin user hiện tại
+        // chưa làm security
+        return userRepository.findById(2).orElse(null);
     }
 }
