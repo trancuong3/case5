@@ -20,7 +20,7 @@ import java.time.Instant;
 public class RegistrationController {
     private final UserService userService;
     private final OwnerService ownerService;
-
+    //private final  PasswordEncoder passwordEncoder;
 
     public RegistrationController(UserService userService, OwnerService ownerService) {
         this.userService = userService;
@@ -39,6 +39,8 @@ public class RegistrationController {
             System.out.println(result.getAllErrors());
             return "register";
         }
+        //user.setPassword(passwordEncoder.encode(user.getPassword()));
+        //user.setPasswordConfirm(passwordEncoder.encode(user.getPasswordConfirm()));
 
         // Thiết lập thời gian hiện tại cho createdAt và updatedAt
         Timestamp currentTimestamp = Timestamp.from(Instant.now());
@@ -62,7 +64,6 @@ public class RegistrationController {
     }
     @PostMapping("/owner")
     public String registerOwnerUser(@RequestParam String password, Model model) {
-            // Kiểm tra password
         if (ownerService.checkPassword(password)) {
             Timestamp currentTimestamp = Timestamp.from(Instant.now());
             Owner owner = new Owner();

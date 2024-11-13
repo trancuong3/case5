@@ -11,6 +11,7 @@ public class OwnerService {
     private final OwnerRepository ownerRepository;
     @Autowired
     private UserService userService;
+//    private final PasswordEncoder passwordEncoder;
 
     public OwnerService(OwnerRepository ownerRepository) {
         this.ownerRepository = ownerRepository;
@@ -29,10 +30,6 @@ public class OwnerService {
         ownerRepository.save(owner);
     }
 
-
-    /**
-     * Lấy owner theo ID (cho admin)
-     */
     public Owner getOwnerById(int id) {
         return ownerRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy chủ nhà"));
@@ -41,5 +38,7 @@ public class OwnerService {
     public boolean checkPassword(String password) {
         User currentUser = userService.getCurrentUser();
         return password.equals(currentUser.getPassword());
+//        String encodedPassword = currentUser.getPassword();
+//        return passwordEncoder.matches(Password, encodedPassword);
     }
 }
