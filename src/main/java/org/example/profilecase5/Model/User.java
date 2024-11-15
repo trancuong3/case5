@@ -27,11 +27,10 @@ public class User  {
     @NotEmpty(message = "Email không được để trống")
     private String email;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "password_hash", nullable = false)
     @NotEmpty(message = "Password không được để trống")
-    @Size(min = 6, max = 32, message = "Mật khẩu phải có độ dài từ 6 đến 32 ký tự")
     private String password;
-    @Column(name="confirm_password")
+    @Column(name="confirm_password_hash")
     @NotEmpty(message = "Xác nhận mật khẩu không được để trống")
     private String confirmPassword;
     @Column(name = "phone")
@@ -45,7 +44,6 @@ public class User  {
 
 
     @Column(name = "address")
-    @NotEmpty(message = "Địa chỉ không được để trống")
     private String address;
 
     @Enumerated(EnumType.STRING)

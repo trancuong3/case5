@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +30,8 @@ public class AccountController {
 
     @Autowired
     private UserService userService;
+    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
 
     @GetMapping("")
     public String getAccountPage(Model model) {
@@ -94,22 +97,26 @@ public class AccountController {
             return "redirect:/account";
         }
 
-        if (!currentPassword.equals(user.getPassword())) {
+        // Kiểm tra mật khẩu hiện tại đã mã hóa
+        if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
             redirectAttributes.addFlashAttribute("error", "Mật khẩu hiện tại không đúng");
             return "redirect:/account";
         }
 
+        // Kiểm tra khớp của mật khẩu mới và xác nhận mật khẩu
         if (!newPassword.equals(confirmPassword)) {
             redirectAttributes.addFlashAttribute("error", "Mật khẩu mới không khớp với xác nhận");
             return "redirect:/account";
         }
 
-        user.setPassword(newPassword);
+        // Mã hóa mật khẩu mới trước khi lưu
+        user.setPassword(passwordEncoder.encode(newPassword));
         userRepository.save(user);
 
         redirectAttributes.addFlashAttribute("success", "Đổi mật khẩu thành công");
         return "redirect:/account";
     }
+
 
 
 }
