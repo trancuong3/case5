@@ -97,18 +97,6 @@
             margin-top: 20px;
         }
 
-        .help-box {
-            border: 1px solid #e0e0e0;
-            border-radius: 10px;
-            background-color: #ffffff;
-            color: black;
-            transition: background-color 0.3s, border-color 0.3s;
-        }
-        .help-box:hover {
-            background-color: #f0f0f0;
-            border-color: #bfbfbf;
-            text-decoration: none;
-        }
         .help-box h5 {
             font-size: 16px;
             font-weight: bold;
@@ -122,12 +110,7 @@
             height: 100%;
         }
 
-        .card-body {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            height: 100%;
-        }
+
 
         .card-text {
             font-weight: bold;
@@ -164,9 +147,7 @@
             color: #343a40;
         }
 
-        .footer .text-muted {
-            font-size: 14px;
-        }
+
 
         .footer .fab, .footer .fas.fa-globe {
             color: #6c757d;
@@ -189,6 +170,645 @@
         .notification-panel .fa-envelope {
             font-size: 20px;
         }
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #ffffff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-nav .nav-item {
+            margin-right: 20px;
+        }
+
+        .navbar-nav .nav-item.active .nav-link {
+            font-weight: bold;
+            color: #007bff !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: #6c757d;
+            padding: 10px 20px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .navbar-nav .nav-link:hover {
+            background-color: #e9ecef;
+            color: #007bff;
+        }
+
+        .navbar-brand img {
+            height: 50px;
+            width: auto;
+        }
+
+        /* Profile Section */
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .header-content h1 {
+            font-size: 36px;
+            font-weight: bold;
+            color: #343a40;
+        }
+
+        .header-content a.btn {
+            background-color: #007bff;
+            color: white;
+            border-radius: 30px;
+            font-size: 14px;
+            padding: 8px 20px;
+            transition: background-color 0.3s;
+        }
+
+        .header-content a.btn:hover {
+            background-color: #0056b3;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .card img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+
+        .card-body {
+            text-align: center;
+        }
+
+        .card-text {
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .card-body .btn-underline {
+            text-decoration: underline;
+            background-color: transparent;
+            color: #007bff;
+            border: none;
+            font-size: 14px;
+            padding: 0;
+        }
+
+        .card-body .btn-underline:hover {
+            background-color: transparent;
+            color: #0056b3;
+        }
+
+        /* Profile Form */
+        form input[type="text"],
+        form input[type="email"],
+        form input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            background-color: #f8f9fa;
+        }
+
+        form input[type="text"]:focus,
+        form input[type="email"]:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        form .info-item {
+            margin-bottom: 20px;
+        }
+
+        form .submit-btn {
+            text-align: right;
+        }
+
+        form .submit-btn button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            transition: background-color 0.3s;
+        }
+
+        form .submit-btn button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #343a40;
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        .footer h6 {
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .footer ul {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .footer ul li {
+            display: inline-block;
+            margin: 0 10px;
+        }
+
+        .footer ul li a {
+            color: #6c757d;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .footer ul li a:hover {
+            color: white;
+        }
+
+        .footer .social-links a {
+            margin: 0 10px;
+            font-size: 18px;
+            color: #6c757d;
+            transition: color 0.3s;
+        }
+
+        .footer .social-links a:hover {
+            color: white;
+        }
+
+        /* Notifications Panel */
+        .notification-panel {
+            width: 300px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .notification-panel h4 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .notification-panel a {
+            display: block;
+            padding: 10px;
+            margin-bottom: 10px;
+            color: #333;
+            text-decoration: none;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background-color 0.3s;
+        }
+
+        .notification-panel a:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Modal & Form Controls */
+        form #urlForm {
+            display: none;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        form #urlForm .form-group {
+            margin-bottom: 20px;
+        }
+
+        form button[type="submit"] {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+        }
+
+        form button[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        form button[type="button"] {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+        }
+
+        form button[type="button"]:hover {
+            background-color: #c82333;
+        }
+             /* General Reset */
+         * {
+             margin: 0;
+             padding: 0;
+             box-sizing: border-box;
+         }
+
+        /* Body */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #ffffff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 10px 20px;
+        }
+
+        .navbar-nav .nav-item {
+            margin-right: 20px;
+        }
+
+        .navbar-nav .nav-link {
+            color: #6c757d;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 12px 20px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .navbar-nav .nav-item.active .nav-link {
+            font-weight: bold;
+            color: #007bff !important;
+        }
+
+        .navbar-nav .nav-link:hover {
+            background-color: #e9ecef;
+            color: #007bff;
+        }
+
+        /* Profile Section */
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .header-content h1 {
+            font-size: 36px;
+            font-weight: bold;
+            color: #343a40;
+        }
+
+        .header-content a.btn {
+            background-color: #007bff;
+            color: white;
+            border-radius: 30px;
+            font-size: 14px;
+            padding: 8px 20px;
+            transition: background-color 0.3s;
+        }
+
+        .header-content a.btn:hover {
+            background-color: #0056b3;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+
+        .card-body {
+            text-align: center;
+        }
+
+        .card-text {
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .btn-underline {
+            text-decoration: underline;
+            background-color: transparent;
+            color: #007bff;
+            border: none;
+            font-size: 14px;
+            padding: 0;
+            transition: color 0.3s;
+        }
+
+        .btn-underline:hover {
+            background-color: transparent;
+            color: #0056b3;
+        }
+
+        /* Form Elements */
+        form input[type="text"],
+        form input[type="email"],
+        form input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            background-color: #f8f9fa;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        form input[type="text"]:focus,
+        form input[type="email"]:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .submit-btn {
+            text-align: right;
+        }
+
+        .submit-btn button {
+            padding: 12px 25px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #343a40;
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer h6 {
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .footer ul {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .footer ul li {
+            display: inline-block;
+            margin: 0 10px;
+        }
+
+        .footer ul li a {
+            color: #6c757d;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .footer ul li a:hover {
+            color: white;
+        }
+
+        .footer .social-links a {
+            margin: 0 10px;
+            font-size: 18px;
+            color: #6c757d;
+            transition: color 0.3s;
+        }
+
+        .footer .social-links a:hover {
+            color: white;
+        }
+
+        /* Notifications Panel */
+        .notification-panel {
+            width: 300px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .notification-panel h4 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #007bff;
+        }
+
+        .notification-panel a {
+            display: block;
+            padding: 12px;
+            margin-bottom: 10px;
+            color: #333;
+            text-decoration: none;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .notification-panel a:hover {
+            background-color: #e9ecef;
+            color: #007bff;
+        }
+
+        /* Modal & Form Controls */
+        form #urlForm {
+            display: none;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        form button[type="submit"] {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        form button[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        form button[type="button"] {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        form button[type="button"]:hover {
+            background-color: #c82333;
+        }
+
+             /* General Form Style */
+         form {
+             max-width: 600px;
+             margin: 30px auto;
+             background-color: #ffffff;
+             border-radius: 8px;
+             padding: 30px;
+             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+         }
+
+        /* Info Item */
+        .info-item {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-item label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        .info-item span {
+            font-size: 14px;
+            color: #6c757d;
+        }
+
+        /* Input Fields */
+        .info-item input {
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            background-color: #f8f9fa;
+            transition: border-color 0.3s, background-color 0.3s;
+        }
+
+        .info-item input:focus {
+            border-color: #007bff;
+            background-color: #ffffff;
+            outline: none;
+        }
+
+        .info-item input[readonly] {
+            background-color: #e9ecef;
+            cursor: not-allowed;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .submit-btn button {
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        /* Update Button (Visible when editable) */
+        #submitBtn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            display: block;
+        }
+
+        #submitBtn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Cancel Button */
+        #cancelBtn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            display: block;
+        }
+
+        #cancelBtn:hover {
+            background-color: #c82333;
+        }
+
+        /* Hide buttons initially */
+        #submitBtn, #cancelBtn {
+            display: none;
+        }
+
+        /* On Edit Enable Submit */
+        .editable input {
+            background-color: #ffffff;
+            cursor: text;
+        }
+
+        .editable #submitBtn, .editable #cancelBtn {
+            display: inline-block;
+        }
+    </style>
+
+
     </style>
 </head>
 <body>
@@ -243,7 +863,8 @@
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img th:src="${user.avatar != null && user.avatar != '' ? 'data:image/jpeg;base64,' + user.avatar : '/images/img_2.png'}" alt="Avatar" width="30" height="30">                </a>
+                    <img src="/images/img_2.png" alt="Người dùng" class="rounded-circle" width="30" height="30">
+                </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                     <a class="dropdown-item" href="/profile">Hồ sơ</a>
                     <a class="dropdown-item" href="/account">Tài khoản</a>
@@ -260,107 +881,67 @@
     </div>
 </nav>
 
-
-<div class="profile-photo">
-    <img th:src="${user.avatar != null && user.avatar != '' ? 'data:image/jpeg;base64,' + user.avatar : '/images/img_2.png'}" alt="Avatar" width="150" height="150">
-    <button class="btn btn-link" onclick="showUrlForm()">Chỉnh sửa</button>
-</div>
-
-
-<div id="urlForm" style="display: none;">
-    <form action="/profile/update-avatar" method="post" enctype="multipart/form-data">
-        <div class="form-group">
-            <label for="avatar">Chọn ảnh đại diện:</label>
-            <input type="file" id="avatar" name="avatar" class="form-control">
-        </div>
-        <button type="submit" class="btn btn-primary">Cập nhật ảnh</button>
-        <button type="button" class="btn btn-secondary" onclick="cancelUrlForm()">Hủy</button>
-    </form>
-</div>
-
-</div>
-
-<h2 class="section-title">Hồ sơ của bạn</h2>
-
-<div class="row">
-    <div class="col-md-6">
-        <div class="form-group">
-            <label>Nơi đã từng theo học</label>
-            <input type="text" class="form-control" placeholder="Enter your school">
-        </div>
-        <div class="form-group">
-            <label>Nơi tôi sống</label>
-            <input type="text" class="form-control" placeholder="Enter your city">
-        </div>
-        <div class="form-group">
-            <label>Thập niên tôi sinh ra</label>
-            <input type="text" class="form-control" placeholder="Enter your birth decade">
-        </div>
-        <div class="form-group">
-            <label>Thú mà tôi thương nhất</label>
-            <input type="text" class="form-control" placeholder="Enter your favorite pet">
-        </div>
-        <div class="form-group">
-            <label>Kỹ năng vui vững nhất của tôi</label>
-            <input type="text" class="form-control" placeholder="Enter your top skill">
+<div class="container mt-5">
+    <div class="header-content">
+        <h1>Hồ sơ của tôi</h1>
+        <div>
+            <a href="javascript:void(0)" class="btn btn-secondary btn-hover" onclick="enableEdit()" style="margin-left: -700px;">Chỉnh sửa hồ sơ </a>
         </div>
     </div>
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card">
+                <img th:src="${user.avatar != null && user.avatar != '' ? 'data:image/jpeg;base64,' + user.avatar : '/images/img_2.png'}" alt="Avatar" width="150" height="150"style="margin-left: 100px">
+                    <p class="card-text">Ảnh đại diện của bạn</p>
+                    <button class="btn btn-outline-primary btn-underline" onclick="showUrlForm()">Chỉnh sửa</button>
+                    <div id="urlForm" style="display: none;">
+                        <form action="/profile/update-avatar" method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="avatar">Chọn ảnh đại diện:</label>
+                                <input type="file" id="avatar" name="avatar" class="form-control">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Cập nhật ảnh</button>
+                            <button type="button" class="btn btn-secondary" onclick="cancelUrlForm()">Hủy</button>
+                        </form>
+                    </div>
 
-    <div class="col-md-6">
-        <div class="form-group">
-            <label>Công việc của tôi</label>
-            <input type="text" class="form-control" placeholder="Enter your job">
+            </div>
         </div>
-        <div class="form-group">
-            <label>Ngôn ngữ của tôi</label>
-            <input type="text" class="form-control" placeholder="Enter your languages">
-        </div>
-        <div class="form-group">
-            <label>Suý nghĩ thú vị của tôi</label>
-            <input type="text" class="form-control" placeholder="Enter interesting thoughts">
-        </div>
-        <div class="form-group">
-            <label>Thành tích sử dụng thời gian tốt</label>
-            <input type="text" class="form-control" placeholder="Enter accomplishments">
-        </div>
-        <div class="form-group">
-            <label>Thú cưng</label>
-            <input type="text" class="form-control" placeholder="Enter pets">
-        </div>
+
+            <form th:action="@{/profile/update}" method="POST" id="profileForm" style="margin-left: 50px;">
+                <div>
+                    <div class="info-item">
+                        <label>Tên người dùng</label>
+                        <span th:text="${user.username}">Tên người dùng</span>
+                    </div>
+
+                    <div class="info-item">
+                        <label for="fullname">Họ và tên</label>
+                        <input type="text" id="fullname" name="fullname" th:value="${user.fullname}" required readonly />
+                    </div>
+
+                    <div class="info-item">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" th:value="${user.email}" required readonly />
+                    </div>
+
+                    <div class="info-item">
+                        <label for="phone">Số điện thoại</label>
+                        <input type="text" id="phone" name="phone" th:value="${user.phone}" required pattern="^\d{10}$" readonly />
+                    </div>
+
+                    <div class="info-item">
+                        <label for="address">Địa chỉ</label>
+                        <input type="text" id="address" name="address" th:value="${user.address}" readonly />
+                    </div>
+
+                    <div class="submit-btn">
+                        <button type="submit" id="submitBtn" style="display:none;">Cập nhật</button>
+                        <button type="button" onclick="hideEditForm()" style="display:none;" id="cancelBtn">Hủy</button>
+                    </div>
+                </div>
+            </form>
     </div>
-</div>
-
-<div class="form-group mt-4">
-    <label>Giới thiệu về bạn</label>
-    <textarea class="form-control" rows="3" placeholder="Viết vài dòng thú vị về bản thân..."></textarea>
-    <button class="btn btn-link">Thêm phần giới thiệu</button>
-</div>
-
-<div class="mt-4">
-    <h4>Nơi bạn từng đến</h4>
-    <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" id="togglePlaces">
-        <label class="form-check-label" for="togglePlaces">Bật/Tắt</label>
-    </div>
-    <div class="d-flex justify-content-around mt-3">
-        <div class="place-icon">
-            <span>Địa điểm 1</span>
-        </div>
-        <div class="place-icon">
-            <span>Địa điểm 2</span>
-        </div>
-        <div class="place-icon">
-            <span>Địa điểm 3</span>
-        </div>
-        <div class="place-icon">
-            <span>Địa điểm 4</span>
-        </div>
-    </div>
-</div>
-
-<div class="mt-4 text-right">
-    <button class="btn btn-primary">Hoàn tất</button>
-</div>
 </div>
 
 <footer class="footer bg-light text-center py-4">
@@ -381,6 +962,30 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
+    function enableEdit() {
+        // Remove the readonly attribute to enable editing
+        document.getElementById("fullname").removeAttribute("readonly");
+        document.getElementById("email").removeAttribute("readonly");
+        document.getElementById("phone").removeAttribute("readonly");
+        document.getElementById("address").removeAttribute("readonly");
+
+        // Show submit and cancel buttons
+        document.getElementById("submitBtn").style.display = "inline-block";
+        document.getElementById("cancelBtn").style.display = "inline-block";
+    }
+
+    // Function to hide the edit form (can be used with the cancel button)
+    function hideEditForm() {
+        // Revert the inputs back to readonly
+        document.getElementById("fullname").setAttribute("readonly", true);
+        document.getElementById("email").setAttribute("readonly", true);
+        document.getElementById("phone").setAttribute("readonly", true);
+        document.getElementById("address").setAttribute("readonly", true);
+
+        // Hide the submit and cancel buttons
+        document.getElementById("submitBtn").style.display = "none";
+        document.getElementById("cancelBtn").style.display = "none";
+    }
     function showUrlForm() {
         document.getElementById("urlForm").style.display = "block";
     }
@@ -414,7 +1019,6 @@
     function cancelUrlForm() {
         document.getElementById("urlForm").style.display = "none";
     }
-
 </script>
 </body>
 </html>

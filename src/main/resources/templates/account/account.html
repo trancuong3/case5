@@ -291,7 +291,20 @@
                 </div>
             </section>
 
-
+            <div class="profile-photo">
+                <img th:src="${user.avatar != null && user.avatar != '' ? 'data:image/jpeg;base64,' + user.avatar : '/images/img_2.png'}" alt="Avatar" width="150" height="150">
+                <button class="btn btn-link" onclick="showUrlForm()">Chỉnh sửa</button>
+            </div>
+            <div id="urlForm" style="display: none;">
+                <form action="/account/update-avatar" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="avatar">Chọn ảnh đại diện:</label>
+                        <input type="file" id="avatar" name="avatar" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Cập nhật ảnh</button>
+                    <button type="button" class="btn btn-secondary" onclick="cancelUrlForm()">Hủy</button>
+                </form>
+            </div>
         </main>
         <div id="editFormOverlay" class="edit-form-overlay hidden">
             <div class="edit-form-container">
@@ -401,7 +414,13 @@
         }
 
         window.onload = setRandomAvatarColor;
+        function showUrlForm() {
+            document.getElementById("urlForm").style.display = 'block';
+        }
 
+        function cancelUrlForm() {
+            document.getElementById("urlForm").style.display = 'none';
+        }
     </script>
 
     </body>

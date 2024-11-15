@@ -1,8 +1,12 @@
 package org.example.profilecase5.Controller;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.Base64;
 import java.util.List;
 
+import net.coobird.thumbnailator.Thumbnails;
 import org.example.profilecase5.Model.PasswordHistory;
 import org.example.profilecase5.Model.User;
 import org.example.profilecase5.Repository.PasswordHistoryRepository;
@@ -16,7 +20,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+
 
 @Controller
 @RequestMapping("/account")
@@ -31,7 +38,7 @@ public class AccountController {
     @Autowired
     private UserService userService;
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
+    private static final long MAX_FILE_SIZE = 5 * 1024 * 1024;
 
     @GetMapping("")
     public String getAccountPage(Model model) {
@@ -116,7 +123,33 @@ public class AccountController {
         redirectAttributes.addFlashAttribute("success", "Đổi mật khẩu thành công");
         return "redirect:/account";
     }
+    @PostMapping("/update-avatar")
+    public String updateAvatar(@RequestParam("avatar") MultipartFile file, Model model) {
+        try {
+            if (file.getSize() > MAX_FILE_SIZE) {
+                model.addAttribute("message", "Ảnh quá lớn, vui lòng chọn ảnh nhỏ hơn 5MB.");
+                return "profile/profile";
+            }
 
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            Thumbnails.of(file.getInputStream())
+                    .size(200, 200)
+                    .outputFormat("JPEG")
+                    .outputQuality(0.8f)
+                    .toOutputStream(outputStream);
+
+            byte[] resizedImage = outputStream.toByteArray();
+            String base64Avatar = Base64.getEncoder().encodeToString(resizedImage);
+
+            User user = userService.getUserById(1);
+            user.setAvatar(base64Avatar);
+            userService.saveUser(user);
+        } catch (IOException e) {
+
+            model.addAttribute("message", "Đã xảy ra lỗi khi cập nhật ảnh đại diện. Vui lòng thử lại.");
+        }
+        return "redirect:/account";
+    }
 
 
 }
