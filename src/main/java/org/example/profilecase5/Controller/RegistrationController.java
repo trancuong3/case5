@@ -1,6 +1,6 @@
 package org.example.profilecase5.Controller;
 
-import jakarta.validation.ConstraintViolationException;
+
 import org.example.profilecase5.Exceptions.User.EmailAlreadyExistsException;
 import org.example.profilecase5.Exceptions.User.PasswordValidationException;
 import org.example.profilecase5.Exceptions.User.UsernameAlreadyExistsException;
@@ -12,8 +12,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
-import java.time.Instant;
 
 @Controller
 @RequestMapping("/register")
@@ -47,6 +45,7 @@ public class RegistrationController {
         } catch (PasswordValidationException e) {
             result.rejectValue("password", "error.password", e.getMessage());
             return "register";
+
         }
         return "redirect:/login";
     }

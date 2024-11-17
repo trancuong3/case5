@@ -13,6 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,6 +65,9 @@ public class UserService {
             // Ném exception nếu mật khẩu không hợp lệ
             throw new PasswordValidationException("Mật khẩu phải có độ dài từ 6 đến 32 ký tự");
         }
+        Timestamp currentTimestamp = Timestamp.from(Instant.now());
+        user.setCreatedAt(currentTimestamp);
+        user.setUpdatedAt(currentTimestamp);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setConfirmPassword(passwordEncoder.encode(user.getConfirmPassword()));
         Role userRole = roleRepository.findByRoleId(user.getRole().getRoleId())

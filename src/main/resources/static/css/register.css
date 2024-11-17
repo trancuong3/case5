@@ -1,4 +1,4 @@
-/* Center the form container */
+/* Căn giữa form container */
 body {
     display: flex;
     justify-content: center;
@@ -18,7 +18,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Form title */
+/* Tiêu đề form */
 .title {
     font-size: 36px; /* Tăng kích thước chữ "Đăng ký" */
     font-weight: 600;
@@ -27,11 +27,11 @@ body {
     color: #d63384;
 }
 
-/* Input fields styling */
+/* Styling các trường nhập liệu */
 .input {
     position: relative;
-    margin-bottom: 20px;
-    min-height: 60px;
+    margin-bottom: 30px; /* Tăng khoảng cách để lỗi không bị chồng */
+    min-height: 70px;    /* Đảm bảo đủ chỗ cho cả input và lỗi */
 }
 
 .input label {
@@ -56,7 +56,7 @@ body {
     box-shadow: 0 0 4px rgba(214, 51, 132, 0.25);
 }
 
-/* Error message styling */
+/* Styling thông báo lỗi */
 .input .error-message {
     display: none;
     color: red;
@@ -66,7 +66,12 @@ body {
     left: 0;
 }
 
-/* Submit button styling */
+/* Hiển thị lỗi khi có nội dung */
+.input .error-message:not(:empty) {
+    display: block;
+}
+
+/* Nút submit */
 .button {
     text-align: center;
 }
@@ -88,13 +93,14 @@ body {
     background-color: #c12f73;
 }
 
-/* Media query for small screens */
+/* Media query cho màn hình nhỏ */
 @media (max-width: 576px) {
     .materialContainer {
         padding: 15px;
     }
 }
 
+/* Styling cho role buttons */
 .role-buttons {
     display: flex;
     gap: 10px;
@@ -122,4 +128,9 @@ body {
 
 .role-btn:active {
     transform: scale(0.98);
+}
+
+/* Debug lỗi (có thể xóa sau khi hoàn thiện) */
+.error-message {
+    outline: 1px dashed red; /* Đánh dấu để kiểm tra vị trí lỗi */
 }

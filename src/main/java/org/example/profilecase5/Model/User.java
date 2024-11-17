@@ -1,6 +1,7 @@
 package org.example.profilecase5.Model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -25,15 +26,14 @@ public class User {
 
     @Column(name = "email", unique = true)
     @NotEmpty(message = "Email không được để trống")
+    @Email (message = "Email không hợp lệ")
     private String email;
 
     @Column(name = "password", nullable = false)
     @NotEmpty(message = "Password không được để trống")
-    @Size(min = 6, max = 32, message = "Mật khẩu phải có độ dài từ 6 đến 32 ký tự")
     private String password;
     @Column(name = "confirm_password", nullable = false)
     @NotEmpty(message = "Xác nhận mật khẩu không được để trống")
-    @Size(min = 6, max = 32, message = "Xác nhận mật khẩu phải có độ dài từ 6 đến 32 ký tự")
     private String confirmPassword;
 
     @NotEmpty(message = "Số điện thoại không được để trống")
