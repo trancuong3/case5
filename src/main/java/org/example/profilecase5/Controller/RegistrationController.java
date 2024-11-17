@@ -1,10 +1,10 @@
 package org.example.profilecase5.Controller;
 
+import jakarta.validation.ConstraintViolationException;
 import org.example.profilecase5.Exceptions.User.EmailAlreadyExistsException;
+import org.example.profilecase5.Exceptions.User.PasswordValidationException;
 import org.example.profilecase5.Exceptions.User.UsernameAlreadyExistsException;
-import org.example.profilecase5.Model.Owner;
 import org.example.profilecase5.Model.User;
-import org.example.profilecase5.Service.OwnerService;
 import org.example.profilecase5.Service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,12 +19,9 @@ import java.time.Instant;
 @RequestMapping("/register")
 public class RegistrationController {
     private final UserService userService;
-    private final OwnerService ownerService;
-    //private final  PasswordEncoder passwordEncoder;
 
-    public RegistrationController(UserService userService, OwnerService ownerService) {
+    public RegistrationController(UserService userService) {
         this.userService = userService;
-        this.ownerService = ownerService;
     }
 
     @GetMapping
@@ -39,14 +36,6 @@ public class RegistrationController {
             System.out.println(result.getAllErrors());
             return "register";
         }
-        //user.setPassword(passwordEncoder.encode(user.getPassword()));
-        //user.setPasswordConfirm(passwordEncoder.encode(user.getPasswordConfirm()));
-
-        // Thiết lập thời gian hiện tại cho createdAt và updatedAt
-        Timestamp currentTimestamp = Timestamp.from(Instant.now());
-        user.setCreatedAt(currentTimestamp);
-        user.setUpdatedAt(currentTimestamp);
-
         try {
             userService.registerUser(user);
         } catch (UsernameAlreadyExistsException e) {
@@ -55,26 +44,23 @@ public class RegistrationController {
         } catch (EmailAlreadyExistsException e) {
             result.rejectValue("email", "error.email", e.getMessage());
             return "register";
+        } catch (PasswordValidationException e) {
+            result.rejectValue("password", "error.password", e.getMessage());
+            return "register";
         }
         return "redirect:/login";
     }
+
+
     @GetMapping("/owner")
     public String showOwnerRegistrationForm() {
         return "owner/register";
     }
     @PostMapping("/owner")
     public String registerOwnerUser(@RequestParam String password, Model model) {
-        if (ownerService.checkPassword(password)) {
-            Timestamp currentTimestamp = Timestamp.from(Instant.now());
-            Owner owner = new Owner();
-            owner.setCreatedAt(currentTimestamp);
-            owner.setUpdatedAt(currentTimestamp);
-            ownerService.registerOwner(owner);
-            return "redirect:/login/owner";
-        } else {
-            model.addAttribute("error", "Mật khẩu sai");
-            return "owner/register";
-        }
+        User user = userService.getCurrentUser();
+        userService.registerOwnerUser(user);
+        return "redirect:/login/owner";
     }
 
 }

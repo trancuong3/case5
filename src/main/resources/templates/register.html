@@ -50,10 +50,10 @@
             </div>
 
             <div class="input">
-                <label for="passwordConfirm">Nhập lại mật khẩu</label>
-                <input type="password" name="passwordConfirm" id="passwordConfirm" th:field="*{passwordConfirm}" placeholder="Confirm Password" required>
+                <label for="confirmPassword">Nhập lại mật khẩu</label>
+                <input type="password" name="confirmPassword" id="confirmPassword" th:field="*{confirmPassword}" placeholder="Confirm Password" required>
                 <!-- Hiển thị thông báo lỗi cho trường mật khẩu xác nhận -->
-                <span class="error-message" th:errors="*{passwordConfirm}">Mật khẩu không khớp!</span>
+                <span class="error-message" th:errors="*{confirmPassword}">Mật khẩu không khớp!</span>
             </div>
 
             <!-- Address field -->
@@ -64,8 +64,10 @@
             </div>
             <!-- Hidden fields for status, isOwner, createdAt, updatedAt -->
             <input type="hidden" name="status" th:field="*{status}" value="ACTIVE">
+            <input type="hidden" name="role" th:field="*{role.roleId}" th:value="2">
             <input type="hidden" name="createdAt" th:field="*{createdAt}" th:value="${#dates.format(user.createdAt, 'yyyy-MM-dd HH:mm:ss')}">
             <input type="hidden" name="updatedAt" th:field="*{updatedAt}" th:value="${#dates.format(user.updatedAt, 'yyyy-MM-dd HH:mm:ss')}">
+
 
             <!-- Submit button -->
             <div class="button">

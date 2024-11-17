@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Timestamp;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -30,19 +31,17 @@ public class User {
     @NotEmpty(message = "Password không được để trống")
     @Size(min = 6, max = 32, message = "Mật khẩu phải có độ dài từ 6 đến 32 ký tự")
     private String password;
-    @Column(name = "confirm_password")
+    @Column(name = "confirm_password", nullable = false)
     @NotEmpty(message = "Xác nhận mật khẩu không được để trống")
     @Size(min = 6, max = 32, message = "Xác nhận mật khẩu phải có độ dài từ 6 đến 32 ký tự")
-    private String passwordConfirm;
+    private String confirmPassword;
 
-    @Column(name = "phone")
     @NotEmpty(message = "Số điện thoại không được để trống")
     private String phone;
-    @Column(name="fullname")
+    @Column(name = "fullname")
     @NotEmpty(message = "Tên không được để trống")
     private String fullname;
 
-    @Column(name = "address")
     @NotEmpty(message = "Địa chỉ không được để trống")
     private String address;
 
@@ -50,6 +49,12 @@ public class User {
     @Column(name = "status", columnDefinition = "ENUM('Active', 'Locked') DEFAULT 'Active'")
     private Status status = Status.Active;
 
+    @Column(columnDefinition = "LONGTEXT")
+    private String avatar;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "role_id", nullable = false)
+    private Role role;
 
     @Column(name = "created_at", updatable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -61,13 +66,9 @@ public class User {
 
 
     public enum Status {
-        ACTIVE,   
+        ACTIVE,
         Active, Locked
     }
-
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private Owner owner;
-
     public int getUserId() {
         return userId;
     }
@@ -108,12 +109,26 @@ public class User {
         this.password = password;
     }
 
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
     public String getPhone() {
         return phone;
     }
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public String getAddress() {
@@ -148,11 +163,11 @@ public class User {
         this.updatedAt = updatedAt;
     }
 
-    public String getPasswordConfirm() {
-        return passwordConfirm;
+    public Role getRole() {
+        return role;
     }
 
-    public void setPasswordConfirm(String passwordConfirm) {
-        this.passwordConfirm = passwordConfirm;
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
