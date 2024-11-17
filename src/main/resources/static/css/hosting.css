@@ -182,3 +182,19 @@
 .notification-panel .fa-envelope {
     font-size: 20px; /* Điều chỉnh kích thước biểu tượng */
 }
+
+
+.dropdown-menu form.dropdown-item {
+    margin: 0;
+}
+
+.dropdown-menu form.dropdown-item button {
+    border: none;
+    background: none;
+    padding: 0.25rem 1.5rem;
+}
+
+.dropdown-menu form.dropdown-item button:hover {
+    background-color: #f8f9fa;
+    color: #16181b;
+}
