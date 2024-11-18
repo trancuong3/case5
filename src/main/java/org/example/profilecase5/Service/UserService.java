@@ -79,11 +79,8 @@ public class UserService {
             encryptAllPasswords();
         }
     }
-    public void updateUser(User user) {
-        userRepository.save(user);
-    }
     public void registerOwnerUser(User user) {
-        user.setRole(roleRepository.findByRoleName("OWNER").orElse(null));
+        user.setRole(roleRepository.findByRoleName("ROLE_OWNER").orElse(null));
         userRepository.save(user);
     }
     @Transactional(readOnly = true) // Đảm bảo không thay đổi dữ liệu khi truy vấn
@@ -93,10 +90,7 @@ public class UserService {
 
         // Kiểm tra nếu người dùng đã đăng nhập và đã được xác thực
         if (authentication != null && authentication.isAuthenticated()) {
-            // Lấy tên người dùng (username) từ Authentication
             String username = authentication.getName();
-
-            // Truy vấn người dùng từ cơ sở dữ liệu
             return userRepository.findByUsername(username).orElse(null);
         }
 
