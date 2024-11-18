@@ -13,7 +13,7 @@ public class SpringConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(registry->{
-                    registry.requestMatchers("/").permitAll();
+                    registry.requestMatchers("/","/login","/css/**","/images/**").permitAll();
                     registry.anyRequest().authenticated();
                 })
                 .oauth2Login(oauth2Login -> {
