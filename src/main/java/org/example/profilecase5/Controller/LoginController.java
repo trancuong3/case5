@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class ViewController {
+public class LoginController {
 
     @GetMapping("/userProfile")
     public String profile(OAuth2AuthenticationToken token, Model model) {
@@ -18,6 +18,6 @@ public class ViewController {
 
     @GetMapping("/login")
     public String login(){
-        return "customLogin";
+        return "login/login";
     }
 }
