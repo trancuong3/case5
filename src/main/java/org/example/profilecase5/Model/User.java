@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -71,7 +72,7 @@ public class User  {
 
     public enum Status {
         ACTIVE,   // Make sure the enum constant matches the value being passed.
-        Active, Locked
+        Active, LOCKED, Locked
     }
 
     public String getAvatar() {
@@ -188,4 +189,16 @@ public class User  {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<RentalHistory> rentalHistories = new HashSet<>();
+
+    // Getter and Setter for rentalHistories
+    public Set<RentalHistory> getRentalHistories() {
+        return rentalHistories;
+    }
+
+    public void setRentalHistories(Set<RentalHistory> rentalHistories) {
+        this.rentalHistories = rentalHistories;
+    }
+
 }

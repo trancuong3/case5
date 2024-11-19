@@ -2,13 +2,18 @@ package org.example.profilecase5.Service;
 
 import org.example.profilecase5.Exception.User.EmailAlreadyExistsException;
 import org.example.profilecase5.Exception.User.UsernameAlreadyExistsException;
+import org.example.profilecase5.Model.RentalHistory;
 import org.example.profilecase5.Model.User;
 import org.example.profilecase5.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserService {
@@ -47,6 +52,24 @@ public class UserService {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
+
+
+    public void toggleUserStatus(int userId) {
+        User user = userRepository.findById(userId).orElse(null);
+        if (user != null) {
+            if (user.getStatus() == User.Status.ACTIVE) {
+                user.setStatus(User.Status.LOCKED);
+            } else {
+                user.setStatus(User.Status.ACTIVE);
+            }
+            userRepository.save(user);
+        }
+    }
+    public Page<User> getUsersWithPagination(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return userRepository.findAll(pageable);
+    }
+
     public boolean isUsernameExist(String username) {
         return userRepository.existsByUsername(username);
     }
@@ -66,6 +89,11 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public Set<RentalHistory> getRentalHistoriesByUserId(int userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
+        return user.getRentalHistories();
+    }
 
 
 
