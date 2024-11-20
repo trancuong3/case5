@@ -22,7 +22,7 @@ public class SecurityConfig {  // Đổi tên thành SecurityConfig
                     oauth2Login
                             .loginPage("/login") // Trang login mặc định
                             .successHandler((request, response, authentication) ->
-                                    response.sendRedirect("/userProfile")); // Redirect sau khi login thành công
+                                    response.sendRedirect("/register")); // Redirect sau khi login thành công
                 })
                 .build();
     }
