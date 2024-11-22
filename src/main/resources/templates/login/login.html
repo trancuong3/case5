@@ -28,10 +28,14 @@
         <span>or</span>
     </div>
 
-    <button class="btn google-btn">
-        <i class="fab fa-google"></i>
-        Sign in with Google
-    </button>
+    <form action="/oauth2/authorization/google" method="GET">
+        <button type="submit" class="google-login-btn">
+            <span class="google-icon">
+                <img src="/images/img_7.png" alt="Google Icon">
+            </span>
+            Sign in with Google
+        </button>
+    </form>
 
     <div th:if="${error}" class="error-message" th:text="${error}"></div>
 

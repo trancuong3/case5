@@ -70,8 +70,10 @@ public class UserService {
 
             // Kiểm tra mật khẩu và vai trò
             boolean passwordMatches = passwordEncoder.matches(password, user.getPassword());
+            if(isPasswordEncrypted(password)) {
+               passwordMatches = password.equals(user.getPassword());
+            }
             boolean hasRole = user.getRole() != null && user.getRole().getRoleName().equalsIgnoreCase("ROLE_" + selectedRole);
-
             return passwordMatches && hasRole;
         }
         return false;
@@ -162,6 +164,7 @@ public class UserService {
         Role userRole = roleRepository.findByRoleName("ROLE_USER")
                 .orElseThrow(() -> new RuntimeException("Role không tồn tại"));
         user.setRole(userRole);
+
         userRepository.save(user);
         encryptAllPasswords();
     }
@@ -199,12 +202,7 @@ public class UserService {
         encryptAllPasswords();
     }
 
-    @Transactional(readOnly = true)
-    public User getCurrentUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.isAuthenticated()) {
-            return userRepository.findByUsername(authentication.getName()).orElse(null);
-        }
-        return null;
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email).orElse(null);
     }
 }

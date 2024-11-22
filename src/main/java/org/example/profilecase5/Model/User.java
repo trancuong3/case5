@@ -51,7 +51,6 @@ public class User  {
     @NotEmpty(message = "Tên không được để trống")
     private String fullname;
 
-    @NotEmpty(message = "Địa chỉ không được để trống")
     private String address;
 
     @Enumerated(EnumType.STRING)
@@ -61,9 +60,9 @@ public class User  {
     @Column(columnDefinition = "LONGTEXT")
     private String avatar;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "role_id", nullable = false)
-    private Role role; // Thay đổi thành đối tượng Role duy nhất
+    private Role role;
 
 
     @Column(name = "created_at", updatable = false)
@@ -107,7 +106,6 @@ public class User  {
         return username;
     }
 
-
     public String getFullname() {
         return fullname;
     }
@@ -127,11 +125,6 @@ public class User  {
     public void setEmail(String email) {
         this.email = email;
     }
-
-
-
-
-
 
     public String getPassword() {
         return password;
@@ -182,25 +175,6 @@ public class User  {
     public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
     }
-
-
-
-//    @ManyToMany(fetch = FetchType.EAGER)
-//    @JoinTable(
-//            name = "user_roles",
-//            joinColumns = @JoinColumn(name = "user_id"),
-//            inverseJoinColumns = @JoinColumn(name = "role_id")
-//    )
-//    private Set<Role> roles = new HashSet<>();
-//
-//    public Set<Role> getRoles() {
-//        return roles;
-//    }
-//
-//    public void setRoles(Set<Role> roles) {
-//        this.roles = roles;
-//    }
-
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<RentalHistory> rentalHistories = new HashSet<>();
