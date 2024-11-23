@@ -207,4 +207,11 @@ public class UserService {
         }
         return null;
     }
+
+    public List<User> getAllOwner() {
+        Role ownerRole = roleRepository.findByRoleName("ROLE_OWNER")
+                .orElseThrow(() -> new RuntimeException("Role không tồn tại"));
+        return userRepository.findAllByRole(ownerRole);
+    }
+
 }
