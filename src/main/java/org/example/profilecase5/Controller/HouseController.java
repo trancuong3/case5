@@ -200,7 +200,19 @@ public class HouseController {
             return "house/edit"; // Quay lại form chỉnh sửa nếu có lỗi
         }
     }
-
+    @GetMapping("/search")
+    public String searchHouses(
+            @RequestParam int minBedrooms,
+            @RequestParam int minBathrooms,
+            @RequestParam(defaultValue = "") String address,
+            @RequestParam(defaultValue = "") String fromDate,
+            @RequestParam double minPrice,
+            @RequestParam double maxPrice,
+            Model model) {
+        List<House> houses = houseService.searchHouses(minBedrooms, minBathrooms, address, minPrice, maxPrice);
+        model.addAttribute("houses", houses);
+        return "house/list";
+    }
 
 
 

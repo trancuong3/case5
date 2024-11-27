@@ -75,5 +75,12 @@ public class HouseService {
         houseRepository.save(existingHouse);
     }
 
+    public List<House> getAllHouses() {
+        return houseRepository.findAll();
+    }
 
+    public List<House> searchHouses(int minBedrooms, int minBathrooms, String address, double minPrice, double maxPrice) {
+        return houseRepository.findByBedroomsGreaterThanEqualAndBathroomsGreaterThanEqualAndAddressContainingAndPricePerDayBetween(
+                minBedrooms, minBathrooms, address, minPrice, maxPrice);
+    }
 }
