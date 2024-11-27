@@ -38,7 +38,7 @@ public class SecurityConfig {
         http
                 .userDetailsService(customerUserDetailService)
                 .authorizeRequests(auth -> auth
-                        .requestMatchers("/main", "/register", "/registerOwner", "/login", "/css/**", "/js/**", "/images/**").permitAll()
+                        .requestMatchers("/main", "/register", "/registerOwner", "/login/**", "/css/**", "/js/**", "/images/**").permitAll()
                         .requestMatchers("/hosting").hasRole("OWNER")
                         .requestMatchers("/admin").hasRole("ADMIN")
                         .requestMatchers("/home").hasRole("USER")
@@ -46,7 +46,7 @@ public class SecurityConfig {
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .loginProcessingUrl("/perform_login")
+                        .loginProcessingUrl("/login/perform_login")
                         .successHandler(customAuthenticationSuccessHandler)
                         .failureUrl("/login?error=true")
                         .permitAll()
