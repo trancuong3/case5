@@ -8,6 +8,7 @@ import org.example.profilecase5.Model.Role;
 import org.example.profilecase5.Model.User;
 import org.example.profilecase5.Repository.RoleRepository;
 import org.example.profilecase5.Repository.UserRepository;
+import org.example.profilecase5.Repository.WaitingOwnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,9 +28,9 @@ import java.util.Set;
 @Service
 public class UserService {
 
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final RoleRepository roleRepository;
+    protected final UserRepository userRepository;
+    protected final PasswordEncoder passwordEncoder;
+    protected final RoleRepository roleRepository;
 
     // Constructor injection
     @Autowired
@@ -111,13 +112,16 @@ public class UserService {
     }
 
     public void toggleUserStatus(int userId) {
+        // Fetch user by ID from the database
         User user = userRepository.findById(userId).orElse(null);
         if (user != null) {
-            if (user.getStatus() == User.Status.ACTIVE) {
-                user.setStatus(User.Status.LOCKED);
+            // Toggle the status between ACTIVE and LOCKED
+            if (user.getStatus() == User.Status.Active) {
+                user.setStatus(User.Status.Locked);
             } else {
-                user.setStatus(User.Status.ACTIVE);
+                user.setStatus(User.Status.Active);
             }
+            // Save the updated user status to the database
             userRepository.save(user);
         }
     }
@@ -149,6 +153,10 @@ public class UserService {
         }
 
         // Kiểm tra mật khẩu xác nhận
+        if (user.getConfirmPassword() == null || user.getConfirmPassword().isEmpty()) {
+            throw new PasswordValidationException("Xác nhận mật khẩu không được để trống");
+        }
+
         if (!user.getPassword().equals(user.getConfirmPassword())) {
             throw new PasswordValidationException("Mật khẩu xác nhận không khớp");
         }
@@ -202,6 +210,10 @@ public class UserService {
         user.setRole(userRole);
         userRepository.save(user);
         encryptAllPasswords();
+    }
+
+    public List<User> getAllOwners() {
+        return userRepository.findAllOwners();
     }
 
     @Transactional(readOnly = true)

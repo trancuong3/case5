@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách chủ nhà chờ duyệt</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/admin.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+<div class="d-flex" id="wrapper">
+    <div class="bg-dark text-white" id="sidebar-wrapper">
+        <div class="sidebar-heading text-center py-4">
+            <img src="https://i.pinimg.com/736x/3f/8c/f9/3f8cf9bba87c5a0ea870af088da6bf8d.jpg"
+                 class="rounded-circle w-25 mb-2" alt="Admin Image">
+            <h4>Admin Panel</h4>
+        </div>
+        <div class="list-group list-group-flush">
+            <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+                <i class="fas fa-users"></i> Quản lý User
+            </a>
+            <a href="/admin/waiting-owners" class="list-group-item list-group-item-action bg-dark text-white">
+                <i class="fas fa-box-open"></i> Danh sách duyệt chủ nhà
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+                <i class="fas fa-user-tie"></i> #
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+                <i class="fas fa-file-invoice"></i> #
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+                <i class="fas fa-chart-bar"></i> #
+            </a>
+            <a href="/perform_logout" class="list-group-item list-group-item-action bg-dark text-white">
+                <i class="fas fa-sign-out-alt"></i> Đăng xuất
+            </a>
+        </div>
+    </div>
+
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <h2 class="mt-4">Danh sách chủ nhà chờ duyệt</h2>
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>Họ và Tên</th>
+                    <th>Email</th>
+                    <th>Số Điện Thoại</th>
+                    <th>Địa Chỉ</th>
+                    <th>Hành Động</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="owner : ${waitingOwners}">
+                    <td th:text="${owner.fullname}"></td>
+                    <td th:text="${owner.email}"></td>
+                    <td th:text="${owner.phone}"></td>
+                    <td th:text="${owner.address}"></td>
+                    <td>
+                        <form th:action="@{'/admin/waiting-owners/accept/' + ${owner.userId}}" method="post" style="display:inline;">
+                            <button class="btn btn-success btn-sm">Chấp nhận</button>
+                        </form>
+                        <form th:action="@{'/admin/waiting-owners/refuse/' + ${owner.userId}}" method="post" style="display:inline;">
+                            <button class="btn btn-danger btn-sm">Từ chối</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script th:src="@{/js/Admin.js}"></script>
+</body>
+</html>
