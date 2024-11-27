@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách các căn nhà</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Danh sách các căn nhà</h2>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Tên căn nhà</th>
+            <th>Địa chỉ</th>
+            <th>Số phòng ngủ</th>
+            <th>Số phòng tắm</th>
+            <th>Giá tiền (VNĐ)</th>
+            <th>Trạng thái</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="house : ${houses}">
+            <td th:text="${house.propertyName}"></td>
+            <td th:text="${house.address}"></td>
+            <td th:text="${house.bedrooms}"></td>
+            <td th:text="${house.bathrooms}"></td>
+            <td th:text="${house.pricePerDay}"></td>
+            <td th:text="${house.status}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
