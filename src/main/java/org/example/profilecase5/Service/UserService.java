@@ -226,4 +226,10 @@ public class UserService {
                 .map(user -> user.getStatus() == User.Status.Active)
                 .orElse(false);
     }
+
+    public List<User> getAllOwners() {
+        Role ownerRole = roleRepository.findByRoleName("ROLE_OWNER")
+                .orElseThrow(() -> new RuntimeException("Role không tồn tại"));
+        return userRepository.findAllByRole(ownerRole);
+    }
 }

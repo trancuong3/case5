@@ -83,4 +83,8 @@ public class HouseService {
         return houseRepository.findByBedroomsGreaterThanEqualAndBathroomsGreaterThanEqualAndAddressContainingAndPricePerDayBetween(
                 minBedrooms, minBathrooms, address, minPrice, maxPrice);
     }
+
+    public List<House> getTop5MostRentedHouses() {
+        return houseRepository.findTop5ByOrderByRentalCountDesc();
+    }
 }
