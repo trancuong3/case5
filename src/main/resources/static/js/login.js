@@ -40,6 +40,7 @@ Copydocument.addEventListener('DOMContentLoaded', function() {
         link.addEventListener('click', function(e) {
             e.preventDefault();
             const role = this.getAttribute('data-value');
+            console.log(role);
             dropdownBtn.textContent = this.textContent;
             selectedRoleInput.value = role;
         });

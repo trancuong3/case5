@@ -51,19 +51,18 @@ public class User  {
     @NotEmpty(message = "Tên không được để trống")
     private String fullname;
 
-    @NotEmpty(message = "Địa chỉ không được để trống")
     private String address;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", columnDefinition = "ENUM('Active', 'Locked') DEFAULT 'Active'")
-    private Status status = Status.ACTIVE;
+    private Status status = Status.Active;
 
     @Column(columnDefinition = "LONGTEXT")
     private String avatar;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "role_id", nullable = false)
-    private Role role; // Thay đổi thành đối tượng Role duy nhất
+    private Role role;
 
 
     @Column(name = "created_at", updatable = false)
@@ -82,8 +81,8 @@ public class User  {
     }
 
     public enum Status {
-        ACTIVE,   // Make sure the enum constant matches the value being passed.
-        LOCKED
+        Active,
+        Locked
     }
 
     public String getAvatar() {
@@ -106,7 +105,6 @@ public class User  {
     public String getUsername() {
         return username;
     }
-
 
     public String getFullname() {
         return fullname;

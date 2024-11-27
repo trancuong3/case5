@@ -8,7 +8,6 @@ import org.example.profilecase5.Model.Role;
 import org.example.profilecase5.Model.User;
 import org.example.profilecase5.Repository.RoleRepository;
 import org.example.profilecase5.Repository.UserRepository;
-import org.example.profilecase5.Repository.WaitingOwnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,9 +27,9 @@ import java.util.Set;
 @Service
 public class UserService {
 
-    protected final UserRepository userRepository;
-    protected final PasswordEncoder passwordEncoder;
-    protected final RoleRepository roleRepository;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final RoleRepository roleRepository;
 
     // Constructor injection
     @Autowired
@@ -69,8 +68,11 @@ public class UserService {
                 userRepository.save(user);
             }
 
-            // Kiểm tra mật khẩu, vai trò, trạng thái
+            // Kiểm tra mật khẩu và vai trò
             boolean passwordMatches = passwordEncoder.matches(password, user.getPassword());
+            if(isPasswordEncrypted(password)) {
+               passwordMatches = password.equals(user.getPassword());
+            }
             boolean hasRole = user.getRole() != null && user.getRole().getRoleName().equalsIgnoreCase("ROLE_" + selectedRole);
             return passwordMatches && hasRole;
         }
@@ -112,7 +114,6 @@ public class UserService {
     }
 
     public void toggleUserStatus(int userId) {
-        // Fetch user by ID from the database
         User user = userRepository.findById(userId).orElse(null);
         if (user != null) {
             // Toggle the status between ACTIVE and LOCKED
@@ -175,6 +176,7 @@ public class UserService {
         Role userRole = roleRepository.findByRoleName("ROLE_USER")
                 .orElseThrow(() -> new RuntimeException("Role không tồn tại"));
         user.setRole(userRole);
+
         userRepository.save(user);
         encryptAllPasswords();
     }
@@ -212,18 +214,6 @@ public class UserService {
         encryptAllPasswords();
     }
 
-    public List<User> getAllOwners() {
-        return userRepository.findAllOwners();
-    }
-
-    @Transactional(readOnly = true)
-    public User getCurrentUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.isAuthenticated()) {
-            return userRepository.findByUsername(authentication.getName()).orElse(null);
-        }
-        return null;
-    }
 
     public List<User> getAllOwner() {
         Role ownerRole = roleRepository.findByRoleName("ROLE_OWNER")
@@ -233,7 +223,7 @@ public class UserService {
 
     public boolean isActive(String username) {
         return userRepository.findByUsername(username)
-                .map(user -> user.getStatus() == User.Status.ACTIVE)
+                .map(user -> user.getStatus() == User.Status.Active)
                 .orElse(false);
     }
 }
