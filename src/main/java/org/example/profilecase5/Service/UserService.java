@@ -27,9 +27,9 @@ import java.util.Set;
 @Service
 public class UserService {
 
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final RoleRepository roleRepository;
+    protected final UserRepository userRepository;
+    protected final PasswordEncoder passwordEncoder;
+    protected final RoleRepository roleRepository;
 
     // Constructor injection
     @Autowired

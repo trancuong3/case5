@@ -22,6 +22,7 @@ public class WaitingOwnerService extends UserService{
     private final UserService userService;
     private final WaitingOwnerRepository waitingOwnerRepository;
 
+
     public WaitingOwnerService(UserRepository userRepository, PasswordEncoder passwordEncoder, WaitingOwnerRepository waitingOwnerRepository, RoleRepository roleRepository, @Qualifier("userService") UserService userService) {
         super(userRepository, passwordEncoder, roleRepository);
         this.userService = userService;
