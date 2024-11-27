@@ -29,5 +29,9 @@ public class HostingController {
             return "error";  // Nếu không tìm thấy người dùng
         }
     }
+//    @GetMapping("/hosting")
+//    public String userDashboard(Authentication authentication) {
+//        return "hosting/hosting";
+//    }
 
 }

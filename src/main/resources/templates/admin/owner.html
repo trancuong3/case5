@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - User List</title>
+    <title>Admin Dashboard - Owner List</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet" href="/css/admin.css">
@@ -19,7 +19,7 @@
         </div>
         <div class="list-group list-group-flush">
             <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-                <i class="fas fa-users"></i> Quản lý User
+                <i class="fas fa-users"></i> Quản lý Chủ Nhà
             </a>
             <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
                 <i class="fas fa-box-open"></i> #
@@ -33,24 +33,17 @@
             <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
                 <i class="fas fa-chart-bar"></i> #
             </a>
-            <a href="/perform_logout" class="list-group-item list-group-item-action bg-dark text-white">
-                <i class="fas fa-sign-out-alt"></i> Đăng xuất
-            </a>
-
+            <form th:action="@{/perform_logout}" method="POST" class="dropdown-item p-0">
+                <button type="submit" class="dropdown-item w-100 text-left">Đăng xuất</button>
+            </form>
         </div>
     </div>
 
     <div id="page-content-wrapper">
         <div class="container-fluid">
-            <h2 class="mt-4">Danh sách người dùng</h2>
-            <a href="/admin/add" class="btn btn-primary mb-3">
-                <i class="fas fa-plus"></i> Thêm Người Dùng
-            </a>
-            <a href="/admin/owner" class="btn btn-secondary mb-3">
-                <i class="fas fa-house-user"></i> Quản lý Chủ Nhà
-            </a>
+            <h2 class="mt-4">Danh sách Chủ Nhà</h2>
             <form class="d-flex me-3 position-relative">
-                <input class="form-control me-2" type="search" placeholder="Tìm kiếm người dùng..." aria-label="Search"
+                <input class="form-control me-2" type="search" placeholder="Tìm kiếm Chủ Nhà..." aria-label="Search"
                        name="query" id="searchInput">
                 <button class="btn btn-outline-success" type="button" id="searchButton">
                     <i class="fas fa-search"></i>
@@ -94,6 +87,5 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script th:src="@{/js/Admin.js}"></script>
 </body>
 </html>

@@ -56,7 +56,7 @@ public class User  {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", columnDefinition = "ENUM('Active', 'Locked') DEFAULT 'Active'")
-    private Status status = Status.Active;
+    private Status status = Status.ACTIVE;
 
     @Column(columnDefinition = "LONGTEXT")
     private String avatar;
@@ -83,7 +83,7 @@ public class User  {
 
     public enum Status {
         ACTIVE,   // Make sure the enum constant matches the value being passed.
-        Active, LOCKED, Locked
+        LOCKED
     }
 
     public String getAvatar() {
@@ -128,11 +128,6 @@ public class User  {
         this.email = email;
     }
 
-
-
-
-
-
     public String getPassword() {
         return password;
     }
@@ -166,7 +161,6 @@ public class User  {
     }
 
 
-
     public Timestamp getCreatedAt() {
         return createdAt;
     }
@@ -182,25 +176,6 @@ public class User  {
     public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
     }
-
-
-
-//    @ManyToMany(fetch = FetchType.EAGER)
-//    @JoinTable(
-//            name = "user_roles",
-//            joinColumns = @JoinColumn(name = "user_id"),
-//            inverseJoinColumns = @JoinColumn(name = "role_id")
-//    )
-//    private Set<Role> roles = new HashSet<>();
-//
-//    public Set<Role> getRoles() {
-//        return roles;
-//    }
-//
-//    public void setRoles(Set<Role> roles) {
-//        this.roles = roles;
-//    }
-
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<RentalHistory> rentalHistories = new HashSet<>();

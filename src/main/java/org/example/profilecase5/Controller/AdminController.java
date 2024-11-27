@@ -59,5 +59,10 @@ public class AdminController {
 
         return "admin/userDetail";  // Tên file Thymeleaf
     }
-
+    @GetMapping("/owner")
+    public String getOwners(Model model) {
+        List<User> user = userService.getAllOwner();
+        model.addAttribute("user", user);
+        return "admin/owner"; // Tên file Thymeleaf
+    }
 }

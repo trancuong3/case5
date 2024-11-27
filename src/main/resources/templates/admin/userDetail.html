@@ -11,9 +11,7 @@
     <h2>Thông Tin Chi Tiết Người Dùng</h2>
     <div class="card mt-4">
         <div class="card-header text-center">
-
-            <img th:src="${user.avatar != null && user.avatar != '' ? 'data:image/jpeg;base64,' + user.avatar : '/images/img_2.png'}" alt="Avatar"class="rounded-circle" width="150">
-
+            <img th:src="${user.avatar != null ? user.avatar : '/images/default-avatar.png'}" alt="Avatar" class="rounded-circle" width="150">
         </div>
         <div class="card-body">
             <h4 class="card-title" th:text="${user.fullname}"></h4>
@@ -23,6 +21,7 @@
             <p><strong>Trạng Thái:</strong>
                 <span th:text="${user.status == 'Active' ? 'Đang hoạt động' : 'Khóa'}"></span>
             </p>
+            <p th:if="${user.role.roleName == 'ROLE_OWNER'}"><strong>Vai trò:</strong> Chủ nhà</p>
             <p><strong>Tổng tiền đã chi tiêu:</strong> <span th:text="${totalSpent}"></span> VND</p>
         </div>
         <div class="card-footer text-center">

@@ -68,10 +68,9 @@ public class UserService {
                 userRepository.save(user);
             }
 
-            // Kiểm tra mật khẩu và vai trò
+            // Kiểm tra mật khẩu, vai trò, trạng thái
             boolean passwordMatches = passwordEncoder.matches(password, user.getPassword());
             boolean hasRole = user.getRole() != null && user.getRole().getRoleName().equalsIgnoreCase("ROLE_" + selectedRole);
-
             return passwordMatches && hasRole;
         }
         return false;
@@ -212,5 +211,17 @@ public class UserService {
             return userRepository.findByUsername(authentication.getName()).orElse(null);
         }
         return null;
+    }
+
+    public List<User> getAllOwner() {
+        Role ownerRole = roleRepository.findByRoleName("ROLE_OWNER")
+                .orElseThrow(() -> new RuntimeException("Role không tồn tại"));
+        return userRepository.findAllByRole(ownerRole);
+    }
+
+    public boolean isActive(String username) {
+        return userRepository.findByUsername(username)
+                .map(user -> user.getStatus() == User.Status.ACTIVE)
+                .orElse(false);
     }
 }
