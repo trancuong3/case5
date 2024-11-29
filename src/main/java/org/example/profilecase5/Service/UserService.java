@@ -116,7 +116,11 @@ public class UserService {
     public void toggleUserStatus(int userId) {
         User user = userRepository.findById(userId).orElse(null);
         if (user != null) {
-            user.setStatus(user.getStatus() == User.Status.ACTIVE ? User.Status.LOCKED : User.Status.ACTIVE);
+            if (user.getStatus() == User.Status.ACTIVE) {
+                user.setStatus(User.Status.LOCKED);
+            } else {
+                user.setStatus(User.Status.ACTIVE);
+            }
             userRepository.save(user);
         }
     }
@@ -129,7 +133,6 @@ public class UserService {
     public String encodePassword(String password) {
         return passwordEncoder.encode(password);
     }
-
     public boolean isPasswordCorrect(String currentPassword, String storedPassword) {
         return passwordEncoder.matches(currentPassword, storedPassword);
     }
@@ -203,6 +206,6 @@ public class UserService {
     }
 
     public User getUserByEmail(String email) {
-        return userRepository.findByEmail(email).orElse(null);
+        return userRepository.findByEmail(email);
     }
 }
