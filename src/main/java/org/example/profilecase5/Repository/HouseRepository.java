@@ -11,5 +11,6 @@ import java.util.Optional;
 public interface HouseRepository extends JpaRepository<House, Integer> {
     List<House> findByUser_UserId(int userId);
 
-    Optional<House> findById(Integer id);
+    List<House> findByPropertyNameContainingIgnoreCase(String propertyName);
+    List<House> findByStatus(House.Status status);
 }

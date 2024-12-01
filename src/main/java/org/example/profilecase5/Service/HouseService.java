@@ -7,6 +7,7 @@ import org.example.profilecase5.Repository.HouseImageRepository;
 import org.example.profilecase5.Repository.HouseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -89,4 +90,15 @@ public class HouseService {
     public List<HouseImage> getImagesByHouseId(Integer houseId) {
         return houseImageRepository.findByHouseId(houseId);
     }
+
+    public List<House> searchHousesByName(String propertyName) {
+        return houseRepository.findByPropertyNameContainingIgnoreCase(propertyName);
+    }
+
+    public List<House> searchHousesByStatus(House.Status status) {
+        return houseRepository.findByStatus(status);
+    }
+
 }
+
+

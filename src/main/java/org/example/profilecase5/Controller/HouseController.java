@@ -4,6 +4,7 @@ import net.coobird.thumbnailator.Thumbnails;
 import org.example.profilecase5.Model.House;
 import org.example.profilecase5.Model.HouseImage;
 import org.example.profilecase5.Model.User;
+import org.example.profilecase5.Repository.HouseRepository;
 import org.example.profilecase5.Service.HouseService;
 import org.example.profilecase5.Service.UserService;
 import jakarta.validation.Valid;
@@ -32,6 +33,9 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/house")
 public class HouseController {
+
+    @Autowired
+    HouseRepository houseRepository;
 
     @Autowired
     private HouseService houseService;
@@ -198,10 +202,25 @@ public class HouseController {
             model.addAttribute("errorMessage", "Đã xảy ra lỗi: " + e.getMessage());
             return "house/edit"; // Quay lại form chỉnh sửa nếu có lỗi
         }
+
     }
 
+    @GetMapping("/search")
+    public String searchHouses(@RequestParam(required = false) String propertyName,
+                               @RequestParam(required = false) String status,
+                                Model model) {
+        List<House> houses;
 
+        if (propertyName != null && !propertyName.isEmpty()) {
+            houses = houseService.searchHousesByName(propertyName);
+        } else if (status != null) {
+            houses = houseService.searchHousesByStatus(House.Status.valueOf(status.toLowerCase()));
+        } else {
+            houses = houseRepository.findAll();
+        }
 
-
+        model.addAttribute("houses", houses);
+        return "hosting/listings :: house-list";
+    }
 
 }
