@@ -71,6 +71,10 @@ public class House {
         , closed
     }
 
+
+    @OneToMany(mappedBy = "house", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<RentalHistory> rentalHistories = new ArrayList<>();
+
     // Getters và Setters
     public int getHouseId() {
         return houseId;

@@ -213,4 +213,17 @@ public class UserService {
         }
         return null;
     }
+
+    public User getCurrentLoggedInUser() {
+        // Lấy đối tượng Authentication từ SecurityContextHolder
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        // Kiểm tra xem người dùng đã đăng nhập chưa
+        if (authentication != null && authentication.isAuthenticated()) {
+            // Trả về thông tin người dùng đã đăng nhập
+            return (User) authentication.getPrincipal(); // User là đối tượng bạn đã định nghĩa trong Spring Security
+        } else {
+            throw new RuntimeException("Không có người dùng đăng nhập.");
+        }
+    }
 }
