@@ -85,7 +85,7 @@ public class RentalController {
     @PostMapping("/confirm")
     public String confirmRental(
             @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss.S") LocalDateTime startDate,
-            @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss.S") LocalDateTime endDate,
+            @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss.S") LocalDateTime endDate, 
             @RequestParam("houseId") int houseId,
             Model model
     ) {
