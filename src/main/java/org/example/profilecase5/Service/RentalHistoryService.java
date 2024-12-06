@@ -1,6 +1,7 @@
 package org.example.profilecase5.Service;
 
 import org.example.profilecase5.Model.RentalHistory;
+import org.example.profilecase5.Model.RentalNotificationDTO;
 import org.example.profilecase5.Repository.RentalHistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,4 +30,9 @@ public class RentalHistoryService {
     public void save(RentalHistory rentalHistory) {
         rentalHistoryRepository.save(rentalHistory);
     }
+
+    public List<RentalNotificationDTO> getLatestNotifications() {
+        return rentalHistoryRepository.findLatestNotifications();
+    }
+
 }
