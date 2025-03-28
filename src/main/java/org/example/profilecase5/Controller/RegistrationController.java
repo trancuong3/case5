@@ -32,7 +32,7 @@ public class RegistrationController {
             return "register/register";
         }
         try {
-            userService.registerUser(user); // Hàm này sẽ kiểm tra và xử lý logic lưu user
+            userService.registerUser(user); 
         } catch (UsernameAlreadyExistsException e) {
             result.rejectValue("username", "error.username", "Tên người dùng đã tồn tại.");
             return "register/register";

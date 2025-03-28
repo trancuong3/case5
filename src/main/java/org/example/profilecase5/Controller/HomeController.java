@@ -42,7 +42,7 @@ public class HomeController {
             if (user == null) {
                 model.addAttribute("errorMessage", "User not found");
                 model.addAttribute("exceptionDetails", "No user found for username: " + username);
-                return "error";  // Chuyển hướng đến trang lỗi nếu không tìm thấy người dùng
+                return "error";  
             }
 
             model.addAttribute("user", user);
@@ -55,8 +55,8 @@ public class HomeController {
             return "home/home";
         } catch (Exception e) {
             model.addAttribute("errorMessage", "An error occurred while loading the account page.");
-            model.addAttribute("exceptionDetails", getStackTrace(e));  // Thêm chi tiết lỗi vào Model
-            return "error";  // Chuyển hướng đến trang lỗi
+            model.addAttribute("exceptionDetails", getStackTrace(e)); 
+            return "error";
         }
     }
 
@@ -74,10 +74,9 @@ public class HomeController {
         List<HouseImage> images = houseService.getImagesByHouseId(id);
         String username = authentication.getName();  
         User user = userService.getUserByUsername(username);
-        // Kiểm tra nếu người dùng tồn tại
         if (user != null) {
-            model.addAttribute("user", user);  // Truyền người dùng vào model
-            List<House> houses = houseService.getHousesByUserId(user.getUserId());  // Lấy danh sách nhà của người dùng
+            model.addAttribute("user", user);  
+            List<House> houses = houseService.getHousesByUserId(user.getUserId()); 
             model.addAttribute("houses", houses);
         } else {
             model.addAttribute("error", "User not found");
@@ -100,7 +99,7 @@ public class HomeController {
             if (user == null) {
                 model.addAttribute("errorMessage", "User not found with username: " + currentUsername);
                 model.addAttribute("exceptionDetails", "Could not find user for username: " + currentUsername);
-                return "error"; // Nếu không tìm thấy người dùng, trả về trang lỗi
+                return "error"; 
             }
 
             Set<RentalHistory> rentalHistories = user.getRentalHistories();
@@ -111,8 +110,8 @@ public class HomeController {
             return "home/history";
         } catch (Exception e) {
             model.addAttribute("errorMessage", "An error occurred while loading the rental history.");
-            model.addAttribute("exceptionDetails", getStackTrace(e));  // Thêm chi tiết lỗi vào Model
-            return "error"; // Nếu có lỗi, trả về trang lỗi
+            model.addAttribute("exceptionDetails", getStackTrace(e));
+            return "error"; 
         }
     }
 }

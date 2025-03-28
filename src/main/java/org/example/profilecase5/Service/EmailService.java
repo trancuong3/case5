@@ -19,12 +19,12 @@ public class EmailService {
         message.setText(body);
 
         try {
-            System.out.println("Attempting to send email to: " + to);  // Log thông tin gửi email
+            System.out.println("Attempting to send email to: " + to);  
             mailSender.send(message);
             System.out.println("Email sent successfully.");
         } catch (MailException e) {
             System.out.println("Error sending email: " + e.getMessage());
-            e.printStackTrace();  // Log chi tiết lỗi
+            e.printStackTrace(); 
         }
     }
 }

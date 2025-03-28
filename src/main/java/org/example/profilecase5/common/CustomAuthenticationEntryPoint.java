@@ -17,7 +17,6 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
     public void commence(HttpServletRequest request, HttpServletResponse response,
                          AuthenticationException authException) throws IOException, ServletException {
 
-        // Lưu URL hiện tại vào session
         String targetUrl = request.getRequestURI();
         String queryString = request.getQueryString();
         if (queryString != null) {
@@ -26,7 +25,6 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
 
         request.getSession().setAttribute("REDIRECT_URL", targetUrl);
 
-        // Redirect tới trang login
         response.sendRedirect("/login");
     }
 }

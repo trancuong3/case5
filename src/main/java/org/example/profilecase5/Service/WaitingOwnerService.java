@@ -39,17 +39,14 @@ public class WaitingOwnerService extends UserService{
             throw new UsernameAlreadyExistsException("Vui lòng sử dụng tên đăng nhập khác.");
         }
 
-        // Kiểm tra email
         if (isEmailExist(waitingOwner.getEmail())) {
             throw new EmailAlreadyExistsException("Vui lòng sử dụng email khác.");
         }
 
-        // Kiểm tra mật khẩu xác nhận
         if (!waitingOwner.getPassword().equals(waitingOwner.getConfirmPassword())) {
             throw new PasswordValidationException("Mật khẩu xác nhận không khớp");
         }
 
-        // Kiểm tra độ dài mật khẩu
         if (waitingOwner.getPassword().length() < 6 || waitingOwner.getPassword().length() > 32) {
             throw new PasswordValidationException("Mật khẩu phải có độ dài từ 6 đến 32 ký tự");
         }

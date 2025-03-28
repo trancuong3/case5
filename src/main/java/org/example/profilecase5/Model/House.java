@@ -17,30 +17,28 @@ public class House {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "house_id")
-    private int houseId; // Khóa chính, tự động tăng
+    private int houseId; 
 
     @Column(name = "property_name", nullable = false)
     @NotEmpty(message = "Tên căn nhà không được để trống")
     @Size(max = 255, message = "Tên căn nhà không được vượt quá 255 ký tự")
-    private String propertyName; // Tên căn nhà
+    private String propertyName; 
 
     @Column(name = "address", nullable = false)
     @NotEmpty(message = "Địa chỉ không được để trống")
     @Size(max = 255, message = "Địa chỉ không được vượt quá 255 ký tự")
-    private String address; // Địa chỉ
-
+    private String address;
     @Enumerated(EnumType.STRING)
     @Column(name = "status", columnDefinition = "ENUM('available', 'rented', 'closed')", nullable = false)
     @NotNull(message = "Trạng thái không được để trống")
-    private Status status; // Trạng thái
-
+    private Status status; 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @Column(name = "bedrooms", nullable = false)
     @Min(value = 1, message = "Số lượng phòng ngủ phải ít nhất là 1")
     @Max(value = 10, message = "Số lượng phòng ngủ tối đa là 10")
-    private int bedrooms; // Số phòng ngủ
+    private int bedrooms; 
 
     @Column(name = "bathrooms", nullable = false)
     @Min(value = 1, message = "Số lượng phòng tắm phải ít nhất là 1")
@@ -69,7 +67,6 @@ public class House {
     @OneToMany(mappedBy = "house", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<HouseImage> houseImages = new ArrayList<>();
 
-    // Mối quan hệ với bảng User
     @ManyToOne
     @JoinColumn(name = "user_id")  // tên cột trong cơ sở dữ liệu
     private User user;

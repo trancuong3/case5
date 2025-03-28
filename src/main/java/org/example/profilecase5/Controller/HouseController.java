@@ -55,10 +55,10 @@ public class HouseController {
         User user = userService.getUserByUsername(username);
 
         if (user.getAvatar() == null) {
-            user.setAvatar("/images/img_2.png"); // Cung cấp ảnh mặc định nếu không có avatar
+            user.setAvatar("/images/img_2.png");
         }
 
-        model.addAttribute("user", user); // Thêm đối tượng user vào model
+        model.addAttribute("user", user);
         model.addAttribute("house", new House());
         return "house/house_form";
     }
@@ -71,14 +71,12 @@ public class HouseController {
                             @RequestParam(value = "imageUrl", required = false) String imageUrl,
                             Model model) {
 
-        // Kiểm tra lỗi validation
         if (bindingResult.hasErrors()) {
             model.addAttribute("errors", bindingResult.getAllErrors());
             logger.warn("Validation errors while submitting the form: {}", bindingResult.getAllErrors());
             return "house/house_form";
         }
 
-        // Kiểm tra người dùng chỉ chọn một phương thức tải ảnh
         if ((imageFile == null || imageFile.isEmpty()) && (imageUrl == null || imageUrl.trim().isEmpty())) {
             model.addAttribute("errorMessage", "Vui lòng tải lên ảnh hoặc nhập URL.");
             return "house/house_form";
@@ -90,7 +88,6 @@ public class HouseController {
         }
 
         try {
-            // Xử lý ảnh từ file
             if (imageFile != null && !imageFile.isEmpty()) {
                 if (imageFile.getSize() > MAX_FILE_SIZE) {
                     model.addAttribute("errorMessage", "Ảnh quá lớn, vui lòng chọn ảnh nhỏ hơn 5MB.");
@@ -116,15 +113,13 @@ public class HouseController {
                 house.getHouseImages().add(houseImage);
             }
 
-            // Xử lý ảnh từ URL
             if (imageUrl != null && !imageUrl.trim().isEmpty()) {
                 if (imageUrl.startsWith("data:")) {
-                    // Nếu là data URL, xử lý nó như một chuỗi Base64
                     try {
-                        String base64Image = imageUrl.split(",")[1];  // Tách phần Base64 từ data URL
+                        String base64Image = imageUrl.split(",")[1]; 
                         byte[] imageBytes = Base64.getDecoder().decode(base64Image);
 
-                        // Xử lý ảnh từ chuỗi Base64
+                      
                         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
                         Thumbnails.of(new ByteArrayInputStream(imageBytes))
                                 .size(800, 800)
@@ -147,7 +142,6 @@ public class HouseController {
                         return "house/house_form";
                     }
                 } else {
-                    // Nếu không phải data URL, xử lý như bình thường
                     try {
                         URL url = new URL(imageUrl);
                         InputStream inputStream = url.openStream();
@@ -182,7 +176,6 @@ public class HouseController {
             return "house/house_form";
         }
 
-        // Gán thông tin người dùng hiện tại
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.getUserByUsername(authentication.getName());
         if (user.getAvatar() == null || user.getAvatar().isEmpty()) {
@@ -191,7 +184,6 @@ public class HouseController {
 
         house.setUser(user);
 
-        // Lưu house vào cơ sở dữ liệu
         try {
             houseService.saveHouse(house);
             logger.info("House saved successfully: {}", house);
@@ -211,30 +203,30 @@ public class HouseController {
     public String showEditForm(@PathVariable("id") int id, Model model, Authentication authentication) {
         if (authentication == null) {
             model.addAttribute("errorMessage", "Bạn cần đăng nhập để chỉnh sửa");
-            return "redirect:/login"; // Quay về trang đăng nhập nếu chưa đăng nhập
+            return "redirect:/login"; 
         }
 
-        String username = authentication.getName();  // Lấy tên người dùng từ Authentication
+        String username = authentication.getName(); 
         User user = userService.getUserByUsername(username);
 
         if (user == null) {
             model.addAttribute("errorMessage", "Người dùng không tồn tại");
-            return "redirect:/login"; // Quay về trang đăng nhập nếu không tìm thấy người dùng
+            return "redirect:/login"; 
         }
 
         if (user.getAvatar() == null) {
-            user.setAvatar("/images/img_2.png"); // Cung cấp ảnh mặc định nếu không có avatar
+            user.setAvatar("/images/img_2.png");
         }
 
-        model.addAttribute("user", user); // Lấy người dùng từ dịch vụ
+        model.addAttribute("user", user); 
 
         Optional<House> house = houseService.findById(id);
         if (house.isPresent()) {
             model.addAttribute("house", house.get());
-            return "house/edit"; // Tên view chỉnh sửa nhà.
+            return "house/edit";
         } else {
             model.addAttribute("errorMessage", "Không tìm thấy nhà với ID: " + id);
-            return "redirect:/house/list"; // Quay lại danh sách nếu không tìm thấy.
+            return "redirect:/house/list"; 
         }
     }
 
@@ -246,41 +238,35 @@ public class HouseController {
                             Model model) {
 
         try {
-            // Kiểm tra houseId và gán nếu cần
             if (house.getHouseId() == 0 && houseId != null) {
                 house.setHouseId(houseId);
             }
 
-            // Kiểm tra nếu cả hai trường đều trống hoặc có ảnh
             if ((image == null || image.isEmpty()) && (imageUrl == null || imageUrl.trim().isEmpty())) {
                 model.addAttribute("errorMessage", "Vui lòng tải lên ảnh hoặc nhập URL.");
                 return "house/edit";
             }
 
-            // Kiểm tra nếu cả hai trường đều có giá trị
             if ((image != null && !image.isEmpty()) && (imageUrl != null && !imageUrl.trim().isEmpty())) {
                 model.addAttribute("errorMessage", "Chỉ được chọn một trong hai: tải lên ảnh hoặc nhập URL.");
                 return "house/edit";
             }
 
-            // Xử lý ảnh nếu có file ảnh
             if (image != null && !image.isEmpty()) {
                 byte[] imageBytes = image.getBytes();
                 String base64Image = Base64.getEncoder().encodeToString(imageBytes);
 
                 HouseImage houseImage = new HouseImage();
-                houseImage.setImageUrl(base64Image);  // Chắc chắn ảnh được chuyển thành Base64
+                houseImage.setImageUrl(base64Image);  
                 houseImage.setHouse(house);
-                houseImage.setMain(false); // Đánh dấu ảnh này không phải ảnh chính
-                house.getHouseImages().add(houseImage);  // Thêm ảnh vào danh sách của house
+                houseImage.setMain(false);
+                house.getHouseImages().add(houseImage); 
             }
 
-            // Xử lý ảnh nếu có URL
             if (imageUrl != null && !imageUrl.trim().isEmpty()) {
                 if (imageUrl.startsWith("data:")) {
-                    // Nếu là data URL, xử lý nó như một chuỗi Base64
                     try {
-                        String base64Image = imageUrl.split(",")[1];  // Tách phần Base64 từ data URL
+                        String base64Image = imageUrl.split(",")[1];  
                         byte[] imageBytes = Base64.getDecoder().decode(base64Image);
 
                         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -294,9 +280,9 @@ public class HouseController {
                         String resizedBase64Image = Base64.getEncoder().encodeToString(resizedImage);
 
                         HouseImage houseImage = new HouseImage();
-                        houseImage.setImageUrl(resizedBase64Image);  // Lưu ảnh đã được resize vào cơ sở dữ liệu
+                        houseImage.setImageUrl(resizedBase64Image); 
                         houseImage.setHouse(house);
-                        houseImage.setMain(true); // Đánh dấu đây là ảnh chính
+                        houseImage.setMain(true); 
 
                         house.getHouseImages().add(houseImage);
                     } catch (Exception e) {
@@ -304,14 +290,14 @@ public class HouseController {
                         return "house/edit";
                     }
                 } else {
-                    // Xử lý ảnh từ URL bình thường
+                    
                     try {
                         URL url = new URL(imageUrl);
                         InputStream inputStream = url.openStream();
                         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
                         Thumbnails.of(inputStream)
-                                .size(800, 800) // Kích thước mới
+                                .size(800, 800) 
                                 .outputFormat("JPEG")
                                 .outputQuality(0.8f)
                                 .toOutputStream(outputStream);
@@ -320,9 +306,9 @@ public class HouseController {
                         String base64Image = Base64.getEncoder().encodeToString(resizedImage);
 
                         HouseImage houseImage = new HouseImage();
-                        houseImage.setImageUrl(base64Image);  // Lưu ảnh vào cơ sở dữ liệu
+                        houseImage.setImageUrl(base64Image); 
                         houseImage.setHouse(house);
-                        houseImage.setMain(false); // Đánh dấu ảnh này không phải ảnh chính
+                        houseImage.setMain(false); 
 
                         house.getHouseImages().add(houseImage);
                     } catch (IOException e) {
@@ -332,10 +318,8 @@ public class HouseController {
                 }
             }
 
-            // Cập nhật nhà vào database
             houseService.updateHouse(house, image);
 
-            // Chuyển hướng về trang edit của house sau khi cập nhật
             return "redirect:/house/edit/" + house.getHouseId();
 
         } catch (Exception e) {
@@ -349,24 +333,20 @@ public class HouseController {
                                @RequestParam(required = false) String status,
                                Model model, Authentication authentication) {
         List<House> houses;
-        String username = authentication.getName();  // Lấy tên người dùng từ Authentication
+        String username = authentication.getName();
         User user = userService.getUserByUsername(username);
         model.addAttribute("user", user);
 
-        // Tìm kiếm nhà của chủ nhà hiện tại
         if (propertyName != null && !propertyName.isEmpty()) {
-            // Tìm kiếm theo tên của chủ nhà hiện tại
             houses = houseService.searchHousesByNameAndUser(propertyName, user.getUserId());
         } else if (status != null && !status.isEmpty()) {
-            // Tìm kiếm theo trạng thái của chủ nhà hiện tại
             houses = houseService.searchHousesByStatusAndUser(House.Status.valueOf(status.toUpperCase()), user.getUserId());
         } else {
-            // Nếu không có tìm kiếm nào, lấy tất cả nhà của chủ nhà hiện tại
             houses = houseService.getHousesByUserId(user.getUserId());
         }
 
         model.addAttribute("houses", houses);
-        return "house/search";  // Template mới sẽ được sử dụng tại đây
+        return "house/search";  
     }
 
 

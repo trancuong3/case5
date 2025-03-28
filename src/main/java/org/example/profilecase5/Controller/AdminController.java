@@ -56,34 +56,27 @@ public class AdminController {
     public String userDetails(@PathVariable int userId, Model model) {
         User user = userService.getUserById(userId);
         if (user == null) {
-            throw new RuntimeException("User not found with id: " + userId); // Hoặc trả về trang thông báo lỗi
+            throw new RuntimeException("User not found with id: " + userId); 
         }
 
-        // Lấy danh sách lịch sử thuê nhà
         Set<RentalHistory> rentalHistories = user.getRentalHistories();
 
-        // Thêm thông tin vào model
         model.addAttribute("user", user);
         model.addAttribute("rentalHistories", rentalHistories);
 
-        // Tính tổng số tiền đã chi tiêu
         double totalSpent = rentalHistories.stream().mapToDouble(RentalHistory::getTotalCost).sum();
         model.addAttribute("totalSpent", totalSpent);
 
-        return "admin/userDetail";  // Tên file Thymeleaf
+        return "admin/userDetail"; 
     }
     @GetMapping("/house")
     public String house(Model model, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
-        // Create a Pageable object with the page and size parameters
         Pageable pageable = PageRequest.of(page, size);
 
-        // Get paginated list of houses
         Page<House> housePage = houseService.getHouses(pageable);
 
-        // Get top 5 rented houses
         List<House> topHouses = houseService.getTop5MostRentedHouses();
 
-        // Add the houses and pagination info to the model
         model.addAttribute("housePage", housePage);
         model.addAttribute("topHouses", topHouses);
         model.addAttribute("currentPage", page);
@@ -98,23 +91,20 @@ public class AdminController {
     public String showWaitingOwners(Model model) {
         List<WaitingOwner> waitingOwners = waitingOwnerService.getAllWaitingOwners();
         model.addAttribute("waitingOwners", waitingOwners);
-        return "admin/waiting-owners"; // Trang JSP cho danh sách chờ duyệt
+        return "admin/waiting-owners"; 
     }
 
-    // Accept waiting owner
     @PostMapping("/waiting-owners/accept/{id}")
     public String acceptOwner(@PathVariable("id") int id) {
-        // Gọi service để chấp nhận chủ nhà và lấy email của họ
+       
         WaitingOwner waitingOwner = waitingOwnerService.findById(id);
         if (waitingOwner == null) {
             throw new RuntimeException("WaitingOwner not found with id: " + id);
         }
         String email = waitingOwner.getEmail();
 
-        // Chuyển đổi và lưu trữ vào bảng user
         waitingOwnerService.acceptWaitingOwner(id);
 
-        // Gửi email thông báo
         emailService.sendEmail(
                 email,
                 "Đăng ký làm chủ nhà được chấp nhận",
@@ -131,11 +121,9 @@ public class AdminController {
                         "http://localhost:8080/login"
         );
 
-        // Chuyển hướng về trang danh sách chủ nhà chờ duyệt
         return "redirect:/admin/waiting-owners";
     }
 
-    // Refuse waiting owner
     @GetMapping("/waiting-owners/refuse/{id}")
     public String refuseOwner(@PathVariable("id") int id) {
         WaitingOwner waitingOwner = waitingOwnerService.findById(id);
@@ -162,7 +150,7 @@ public class AdminController {
     @GetMapping("/owners")
     public String listOwners(Model model) {
         List<User> owners = userService.getAllOwners();
-        model.addAttribute("owners", owners); // Đảm bảo biến "owners" được truyền
+        model.addAttribute("owners", owners); 
         return "admin/owner-list";
     }
 

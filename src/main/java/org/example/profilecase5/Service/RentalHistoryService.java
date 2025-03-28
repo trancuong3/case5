@@ -22,11 +22,10 @@ import java.util.stream.Collectors;
 public class RentalHistoryService {
 
     @Autowired
-    private RentalHistoryRepository rentalHistoryRepository;  // Inject repository
+    private RentalHistoryRepository rentalHistoryRepository; 
 
-    // Method to get rental history by house ID
     public List<RentalHistory> getRentalHistoriesByHouseId(int houseId) {
-        return rentalHistoryRepository.findByHouse_HouseId(houseId);  // Assume findByHouseId is implemented in the repository
+        return rentalHistoryRepository.findByHouse_HouseId(houseId);  
     }
 
     public List<RentalHistory> getAllRentalHistory() {
@@ -55,7 +54,6 @@ public class RentalHistoryService {
         return rentalHistoryRepository.findAll(pageable);
     }
 
-    // Method to get a rental history by ID
 
     public void cancel(RentalHistory rentalHistory) {
         rentalHistory.setStatus(RentalHistory.RentalStatus.Cancelled);

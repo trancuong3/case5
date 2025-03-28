@@ -27,17 +27,17 @@ public class homeuserController {
                                  @RequestParam(defaultValue = "0") int page,
                                  @RequestParam(defaultValue = "9") int size) {
 
-        Pageable pageable = PageRequest.of(page, size);  // Setting page and size
-        Page<HouseImage> mainImages = houseService.getMainImages(pageable); // Get paginated images
+        Pageable pageable = PageRequest.of(page, size);  
+        Page<HouseImage> mainImages = houseService.getMainImages(pageable); 
 
         model.addAttribute("mainImages", mainImages);
 
-        // Pagination details
+     
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", mainImages.getTotalPages());
         model.addAttribute("totalItems", mainImages.getTotalElements());
 
-        // Banner data
+
         List<String> banners = List.of(
                 "/images/banner1.png",
                 "/images/banner2.png",
@@ -45,6 +45,6 @@ public class homeuserController {
         );
         model.addAttribute("banners", banners);
 
-        return "main/home"; // Ensure you return the correct view
+        return "main/home";
     }
 }

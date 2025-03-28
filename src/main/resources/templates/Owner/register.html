@@ -11,11 +11,10 @@
 <body>
 
 <!-- Navbar -->
-<nav class="navbar navbar-light bg-light">
+<header class="navbar navbar-light">
   <div class="container">
     <a class="navbar-brand" href="/main">
-      <img src="/images/avatar.jpg" alt="Logo" style="height: 40px;">
-      Airbnb
+      <img th:src="@{/images/logohome.png}" alt="Logo" style="height: 40px;">
     </a>
     <div class="dropdown ml-2">
       <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -25,10 +24,10 @@
         <a class="dropdown-item" href="/register">Đăng ký Người dùng</a>
         <a class="dropdown-item" href="/registerOwner">Đăng ký Chủ nhà</a>
       </div>
-      <a href="/login" class="btn btn-outline-primary ml-2">Đăng nhập</a>
+      <a href="/login" class="loginbtn btn">Đăng nhập</a>
     </div>
   </div>
-</nav>
+</header>
 
 <!-- Registration Form Container -->
 <div class="materialContainer">
@@ -67,8 +66,7 @@
             <span class="error-message text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
           </div>
         </div>
-
-        <!-- Right Column -->
+<!-- Right Column -->
         <div class="col-md-6">
           <!-- Password Field -->
           <div class="input">

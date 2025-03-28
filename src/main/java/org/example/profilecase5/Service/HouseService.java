@@ -25,7 +25,6 @@ public class HouseService {
     @Autowired
     private HouseImageRepository houseImageRepository;
 
-    // Phương thức lưu nhà vào cơ sở dữ liệu
     public void saveHouse(House house) {
         houseRepository.save(house);
     }
@@ -43,7 +42,6 @@ public class HouseService {
         House existingHouse = houseRepository.findById(house.getHouseId())
                 .orElseThrow(() -> new Exception("House không tồn tại"));
 
-        // Cập nhật thông tin của house
         existingHouse.setPropertyName(house.getPropertyName());
         existingHouse.setAddress(house.getAddress());
         existingHouse.setStatus(house.getStatus());
@@ -52,7 +50,6 @@ public class HouseService {
         existingHouse.setPricePerDay(house.getPricePerDay());
         existingHouse.setDescription(house.getDescription());
 
-        // Nếu có ảnh, thêm vào danh sách ảnh
         if (!house.getHouseImages().isEmpty()) {
             for (HouseImage houseImage : house.getHouseImages()) {
                 if (houseImage.getImageUrl() != null && !houseImage.getImageUrl().isEmpty()) {
@@ -61,12 +58,10 @@ public class HouseService {
             }
         }
 
-        // Lưu lại đối tượng house vào cơ sở dữ liệu
         houseRepository.save(existingHouse);
     }
 
 
-    // Phương thức từ nhánh main
     public List<HouseImage> getMainImages() {
         return houseImageRepository.findMainImages();
     }
@@ -98,17 +93,14 @@ public class HouseService {
     public Page<HouseImage> getMainImages(Pageable pageable) {
         return houseImageRepository.findAll(pageable);
     }
-    // Tìm kiếm nhà theo tên của chủ nhà hiện tại
     public List<House> searchHousesByNameAndUser(String propertyName, int userId) {
         return houseRepository.findByPropertyNameContainingIgnoreCaseAndUser_UserId(propertyName, userId);
     }
 
-    // Tìm kiếm nhà theo trạng thái của chủ nhà hiện tại
     public List<House> searchHousesByStatusAndUser(House.Status status, int userId) {
         return houseRepository.findByStatusAndUser_UserId(status, userId);
     }
 
-    // Lấy tất cả nhà của chủ nhà hiện tại
     public Page<House> getAllHousesPaginated(Pageable pageable) {
         return houseRepository.findAll(pageable);
     }

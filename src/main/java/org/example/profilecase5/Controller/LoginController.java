@@ -30,7 +30,7 @@ public class LoginController {
             model.addAttribute("error", "Tên người dùng, mật khẩu không đúng hoặc tài khoản bị khóa");
         }
 
-        return "login/login"; // file: templates/login.html
+        return "login/login"; 
     }
 }
 

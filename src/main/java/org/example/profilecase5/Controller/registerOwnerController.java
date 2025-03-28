@@ -27,7 +27,6 @@ public class registerOwnerController {
 
     @Autowired
     private WaitingOwnerService waitingOwnerService;
-    // Constructor injection
 
     @GetMapping
     public String showOwnerRegistrationForm(Model model) {

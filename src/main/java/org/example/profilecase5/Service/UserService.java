@@ -59,7 +59,6 @@ public class UserService {
         if (userOptional.isPresent()) {
             User user = userOptional.get();
 
-            // Kiểm tra mật khẩu mã hóa
             if (!isPasswordEncrypted(user.getPassword())) {
                 String encodedPassword = passwordEncoder.encode(user.getPassword());
                 user.setPassword(encodedPassword);
@@ -67,7 +66,6 @@ public class UserService {
                 userRepository.save(user);
             }
 
-            // Kiểm tra mật khẩu và vai trò
             boolean passwordMatches = passwordEncoder.matches(password, user.getPassword());
             boolean hasRole = user.getRole() != null && user.getRole().getRoleName().equalsIgnoreCase("ROLE_" + selectedRole);
 
@@ -102,7 +100,6 @@ public class UserService {
 
     public void saveUser(User user) {
         if (user.getAvatar() == null || user.getAvatar().isEmpty()) {
-            // Gán giá trị mặc định cho avatar nếu không có avatar
             user.setAvatar("/images/img_2.png");
         }
         userRepository.save(user);
@@ -142,17 +139,14 @@ public class UserService {
     }
 
     public void registerUser(User user) {
-        // Kiểm tra tên người dùng
         if (isUsernameExist(user.getUsername())) {
             throw new UsernameAlreadyExistsException("Vui lòng sử dụng tên đăng nhập khác.");
         }
 
-        // Kiểm tra email
         if (isEmailExist(user.getEmail())) {
             throw new EmailAlreadyExistsException("Vui lòng sử dụng email khác.");
         }
 
-        // Kiểm tra mật khẩu xác nhận
         if (user.getConfirmPassword() == null || user.getConfirmPassword().isEmpty()) {
             throw new PasswordValidationException("Xác nhận mật khẩu không được để trống");
         }
@@ -161,7 +155,6 @@ public class UserService {
             throw new PasswordValidationException("Mật khẩu xác nhận không khớp");
         }
 
-        // Kiểm tra độ dài mật khẩu
         if (user.getPassword().length() < 6 || user.getPassword().length() > 32) {
             throw new PasswordValidationException("Mật khẩu phải có độ dài từ 6 đến 32 ký tự");
         }
@@ -184,17 +177,14 @@ public class UserService {
             throw new UsernameAlreadyExistsException("Vui lòng sử dụng tên đăng nhập khác.");
         }
 
-        // Kiểm tra email
         if (isEmailExist(user.getEmail())) {
             throw new EmailAlreadyExistsException("Vui lòng sử dụng email khác.");
         }
 
-        // Kiểm tra mật khẩu xác nhận
         if (!user.getPassword().equals(user.getConfirmPassword())) {
             throw new PasswordValidationException("Mật khẩu xác nhận không khớp");
         }
 
-        // Kiểm tra độ dài mật khẩu
         if (user.getPassword().length() < 6 || user.getPassword().length() > 32) {
             throw new PasswordValidationException("Mật khẩu phải có độ dài từ 6 đến 32 ký tự");
         }

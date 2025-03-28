@@ -24,11 +24,10 @@ public class RentalHistoryController {
     @Autowired
     private RentalHistoryService rentalHistoryService;
 
-    // Add pagination parameters to the method
     @GetMapping
     public String getAllRentalHistory(Authentication authentication,
-            @RequestParam(defaultValue = "0") int page,  // Page number, default 0
-            @RequestParam(defaultValue = "5") int size, // Page size, default 10
+            @RequestParam(defaultValue = "0") int page,  
+            @RequestParam(defaultValue = "5") int size, 
             Model model) {
         if (authentication == null || authentication.getName() == null) {
             model.addAttribute("error", "User not authenticated");
@@ -39,19 +38,15 @@ public class RentalHistoryController {
         User user = userService.getUserByUsername(username);
         model.addAttribute("user", user);
 
-        // Validate the retrieved user
         if (user == null) {
             model.addAttribute("error", "User not found");
             return "error";
         }
 
-        // Pageable object to manage pagination
         Pageable pageable = PageRequest.of(page, size);
 
-        // Get paginated rental history from service
         Page<RentalHistory> rentalHistoriesPage = rentalHistoryService.getAllRentalHistory(pageable);
 
-        // Add paginated result to model
         model.addAttribute("rentalHistories", rentalHistoriesPage.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", rentalHistoriesPage.getTotalPages());

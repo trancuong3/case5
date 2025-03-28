@@ -19,7 +19,6 @@ public class AccountController {
 
     @GetMapping("")
     public String getAccountPage(Model model) {
-        // Lấy thông tin người dùng từ SecurityContext
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication != null && authentication.isAuthenticated()) {
@@ -27,7 +26,6 @@ public class AccountController {
             User user = userService.getUserByUsername(username);
 
             if (user != null) {
-                // In thông tin role ra terminal
                 System.out.println("Role hiện tại của người dùng: " + user.getRole());
 
                 model.addAttribute("user", user);
@@ -50,7 +48,6 @@ public class AccountController {
                                  @RequestParam String confirmPassword,
                                  RedirectAttributes redirectAttributes) {
 
-        // Lấy thông tin người dùng từ SecurityContext
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication != null && authentication.isAuthenticated()) {
@@ -62,19 +59,16 @@ public class AccountController {
                 return "redirect:/account";
             }
 
-            // Kiểm tra mật khẩu hiện tại
             if (!userService.isPasswordCorrect(currentPassword, user.getPassword())) {
                 redirectAttributes.addFlashAttribute("error", "Mật khẩu hiện tại không đúng");
                 return "redirect:/account";
             }
 
-            // Kiểm tra mật khẩu mới
             if (!newPassword.equals(confirmPassword)) {
                 redirectAttributes.addFlashAttribute("error", "Mật khẩu mới không khớp với xác nhận");
                 return "redirect:/account";
             }
 
-            // Cập nhật mật khẩu mới
             user.setPassword(userService.encodePassword(newPassword));
             userService.saveUser(user);
 

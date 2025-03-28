@@ -102,7 +102,7 @@ public class RentalController {
             Optional<House> optionalHouse = houseService.findById(houseId);
             if (optionalHouse.isEmpty()) {
                 model.addAttribute("error", "Không tìm thấy căn nhà với ID: " + houseId);
-                return "redirect:/home"; // Điều hướng về trang chủ hoặc trang danh sách nhà
+                return "redirect:/home"; 
             }
 
             House house = optionalHouse.get();
@@ -116,7 +116,6 @@ public class RentalController {
             model.addAttribute("numDays", numDays);
             model.addAttribute("totalCost", totalCost);
 
-            // Lưu thông tin thuê vào cơ sở dữ liệu
             RentalHistory rental = new RentalHistory();
             rental.setStartDate(Timestamp.valueOf(startDate));
             rental.setEndDate(Timestamp.valueOf(endDate));
@@ -128,7 +127,7 @@ public class RentalController {
 
             model.addAttribute("successMessage", "Thuê căn nhà thành công!");
 
-            return "rental/rental-success"; // Chuyển đến trang thành công hoặc trang khác
+            return "rental/rental-success"; 
         } else {
             model.addAttribute("error", "Người dùng chưa đăng nhập");
             return "redirect:/login";

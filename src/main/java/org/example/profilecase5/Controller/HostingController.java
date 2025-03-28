@@ -23,20 +23,19 @@ public class HostingController {
 
     @GetMapping("")
     public String getAccountPage(Model model, Authentication authentication) {
-        String username = authentication.getName();  // Lấy username của người dùng hiện tại
-        User user = userService.getUserByUsername(username);  // Tìm người dùng từ username
+        String username = authentication.getName(); 
+        User user = userService.getUserByUsername(username);
 
         if (user == null) {
             model.addAttribute("error", "User not found");
-            return "error";  // Nếu không tìm thấy người dùng
+            return "error"; 
         }
 
-        // Nếu không có avatar, không cần chuyển đổi base64 cho ảnh mặc định
         if (user.getAvatar() == null || user.getAvatar().isEmpty()) {
-            user.setAvatar(null);  // Không gán giá trị base64
+            user.setAvatar(null);
         }
 
         model.addAttribute("user", user);
-        return "hosting/hosting";  // Trả về trang profile của người dùng
+        return "hosting/hosting";  
     }
 }
