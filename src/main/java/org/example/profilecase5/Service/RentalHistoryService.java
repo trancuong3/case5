@@ -37,9 +37,10 @@ public class RentalHistoryService {
         return rentalHistoryRepository.findByRentalId(id);
     }
 
-    public void save(RentalHistory rentalHistory) {
-        rentalHistoryRepository.save(rentalHistory);
-    }
+    @Transactional
+    public RentalHistory save(RentalHistory rentalHistory) {
+    return rentalHistoryRepository.save(rentalHistory);
+}
 
     public void checkIn(RentalHistory rentalHistory) {
         rentalHistory.setStatus(RentalHistory.RentalStatus.Checked_in);

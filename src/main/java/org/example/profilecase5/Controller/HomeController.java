@@ -72,7 +72,7 @@ public class HomeController {
     public String showDetail(@PathVariable("id") Integer id, Model model,Authentication authentication) {
         House house = houseService.getHouseById(id);
         List<HouseImage> images = houseService.getImagesByHouseId(id);
-        String username = authentication.getName();  // Lấy username của người dùng hiện tại
+        String username = authentication.getName();  
         User user = userService.getUserByUsername(username);
         // Kiểm tra nếu người dùng tồn tại
         if (user != null) {

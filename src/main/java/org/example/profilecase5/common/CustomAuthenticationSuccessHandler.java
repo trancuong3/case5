@@ -21,7 +21,6 @@ public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         Collection<? extends GrantedAuthority > authorities = authentication.getAuthorities();
         String targetUrl;
 
-        //Kiem tra role, sau do dieu huong ve trang tuong ung :
         if(authorities.stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))){
             targetUrl = "/admin";
         }
